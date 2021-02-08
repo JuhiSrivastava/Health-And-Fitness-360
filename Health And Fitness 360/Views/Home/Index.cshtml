@@ -1,0 +1,60 @@
+﻿@model Model_Object.UserInfoDO
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm(actionName: "Index", controllerName: "Home", routeValues:FormMethod.Post))
+{
+<div class="container">
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserName, validationMessage:null, htmlAttributes: new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserAge, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.UserAge, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserAge, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserHeight, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.UserHeight, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserHeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserWeight, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.UserWeight, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserWeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserMobile, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.UserMobile, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserMobile, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Symptoms, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Symptoms, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Symptoms, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <input type="submit" value="Save" name="save" class="btn btn-primary"/>
+        </div>
+    </div>
+</div>
+
+}
