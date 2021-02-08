@@ -10,9 +10,16 @@
 <div class="container">
     <div class="row">
         <div class="form-group">
+            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EmailId, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
             @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.UserName, validationMessage:null, htmlAttributes: new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.UserName, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
         </div>
     </div>
     <div class="row">
@@ -45,14 +52,14 @@
     </div>
     <div class="row">
         <div class="form-group">
-            @Html.LabelFor(model => model.Symptoms, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.Symptoms, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Symptoms, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
         </div>
     </div>
     <div class="row">
         <div class="form-group">
-            <input type="submit" value="Save" name="save" class="btn btn-primary"/>
+            <input type="submit" value="Save" name="save" class="btn btn-primary" />
         </div>
     </div>
 </div>

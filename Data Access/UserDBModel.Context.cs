@@ -26,5 +26,8 @@ namespace Data_Access
         }
     
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
+        public virtual DbSet<AgeGrpWorkout> AgeGrpWorkouts { get; set; }
+        public virtual DbSet<SymptomsOrDisease> SymptomsOrDiseases { get; set; }
+        public virtual DbSet<UserSymptom> UserSymptoms { get; set; }
     }
 }

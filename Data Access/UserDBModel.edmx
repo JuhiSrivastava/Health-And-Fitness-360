@@ -4,42 +4,167 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HealthAndFitnessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HealthAndFitnessDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AgeGrpWorkout">
+          <Key>
+            <PropertyRef Name="Start Age" />
+          </Key>
+          <Property Name="Start Age" Type="int" Nullable="false" />
+          <Property Name="End Age" Type="int" Nullable="false" />
+          <Property Name="Workout Plan" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Calories" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SymptomsOrDisease">
+          <Key>
+            <PropertyRef Name="SymptomsOrDiseaseName" />
+          </Key>
+          <Property Name="SymptomsOrDiseaseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Medication" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tests" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cure" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserInfo">
           <Key>
-            <PropertyRef Name="UserID" />
+            <PropertyRef Name="EmailId" />
           </Key>
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserAge" Type="int" Nullable="false" />
           <Property Name="UserHeight" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="UserWeight" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="UserMobile" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Symptoms" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserSymptoms">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Symptoms" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Email_Address">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserSymptoms" Type="Self.UserSymptoms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="UserSymptoms">
+              <PropertyRef Name="EmailAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SymptomsOrDisease">
+          <End Role="SymptomsOrDisease" Type="Self.SymptomsOrDisease" Multiplicity="1" />
+          <End Role="UserSymptoms" Type="Self.UserSymptoms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SymptomsOrDisease">
+              <PropertyRef Name="SymptomsOrDiseaseName" />
+            </Principal>
+            <Dependent Role="UserSymptoms">
+              <PropertyRef Name="Symptoms" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HealthAndFitnessDBModelStoreContainer">
+          <EntitySet Name="AgeGrpWorkout" EntityType="Self.AgeGrpWorkout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SymptomsOrDisease" EntityType="Self.SymptomsOrDisease" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSymptoms" EntityType="Self.UserSymptoms" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Email_Address" Association="Self.FK_Email_Address">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserSymptoms" EntitySet="UserSymptoms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SymptomsOrDisease" Association="Self.FK_SymptomsOrDisease">
+            <End Role="SymptomsOrDisease" EntitySet="SymptomsOrDisease" />
+            <End Role="UserSymptoms" EntitySet="UserSymptoms" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HealthAndFitnessDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="UserInfo">
           <Key>
-            <PropertyRef Name="UserID" />
+            <PropertyRef Name="EmailId" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserAge" Type="Int32" Nullable="false" />
           <Property Name="UserHeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="UserWeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="UserMobile" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Symptoms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserSymptoms" Relationship="HealthAndFitnessDBModel.FK_Email_Address" FromRole="UserInfo" ToRole="UserSymptom" />
         </EntityType>
         <EntityContainer Name="HealthAndFitnessDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+          <EntitySet Name="AgeGrpWorkouts" EntityType="HealthAndFitnessDBModel.AgeGrpWorkout" />
+          <EntitySet Name="SymptomsOrDiseases" EntityType="HealthAndFitnessDBModel.SymptomsOrDisease" />
+          <EntitySet Name="UserSymptoms" EntityType="HealthAndFitnessDBModel.UserSymptom" />
+          <AssociationSet Name="FK_SymptomsOrDisease" Association="HealthAndFitnessDBModel.FK_SymptomsOrDisease">
+            <End Role="SymptomsOrDisease" EntitySet="SymptomsOrDiseases" />
+            <End Role="UserSymptom" EntitySet="UserSymptoms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Email_Address" Association="HealthAndFitnessDBModel.FK_Email_Address">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="UserSymptom" EntitySet="UserSymptoms" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AgeGrpWorkout">
+          <Key>
+            <PropertyRef Name="Start_Age" />
+          </Key>
+          <Property Name="Start_Age" Type="Int32" Nullable="false" />
+          <Property Name="End_Age" Type="Int32" Nullable="false" />
+          <Property Name="Workout_Plan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Calories" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SymptomsOrDisease">
+          <Key>
+            <PropertyRef Name="SymptomsOrDiseaseName" />
+          </Key>
+          <Property Name="SymptomsOrDiseaseName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Medication" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tests" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cure" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserSymptoms" Relationship="HealthAndFitnessDBModel.FK_SymptomsOrDisease" FromRole="SymptomsOrDisease" ToRole="UserSymptom" />
+        </EntityType>
+        <EntityType Name="UserSymptom">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Symptoms" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SymptomsOrDisease" Relationship="HealthAndFitnessDBModel.FK_SymptomsOrDisease" FromRole="UserSymptom" ToRole="SymptomsOrDisease" />
+          <NavigationProperty Name="UserInfo" Relationship="HealthAndFitnessDBModel.FK_Email_Address" FromRole="UserSymptom" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_SymptomsOrDisease">
+          <End Type="HealthAndFitnessDBModel.SymptomsOrDisease" Role="SymptomsOrDisease" Multiplicity="1" />
+          <End Type="HealthAndFitnessDBModel.UserSymptom" Role="UserSymptom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SymptomsOrDisease">
+              <PropertyRef Name="SymptomsOrDiseaseName" />
+            </Principal>
+            <Dependent Role="UserSymptom">
+              <PropertyRef Name="Symptoms" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Email_Address">
+          <End Type="HealthAndFitnessDBModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="HealthAndFitnessDBModel.UserSymptom" Role="UserSymptom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="UserSymptom">
+              <PropertyRef Name="EmailAddress" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -49,13 +174,42 @@
           <EntitySetMapping Name="UserInfoes">
             <EntityTypeMapping TypeName="HealthAndFitnessDBModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfo">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserAge" ColumnName="UserAge" />
                 <ScalarProperty Name="UserHeight" ColumnName="UserHeight" />
                 <ScalarProperty Name="UserWeight" ColumnName="UserWeight" />
                 <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgeGrpWorkouts">
+            <EntityTypeMapping TypeName="HealthAndFitnessDBModel.AgeGrpWorkout">
+              <MappingFragment StoreEntitySet="AgeGrpWorkout">
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+                <ScalarProperty Name="Workout_Plan" ColumnName="Workout Plan" />
+                <ScalarProperty Name="End_Age" ColumnName="End Age" />
+                <ScalarProperty Name="Start_Age" ColumnName="Start Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SymptomsOrDiseases">
+            <EntityTypeMapping TypeName="HealthAndFitnessDBModel.SymptomsOrDisease">
+              <MappingFragment StoreEntitySet="SymptomsOrDisease">
+                <ScalarProperty Name="Cure" ColumnName="Cure" />
+                <ScalarProperty Name="Tests" ColumnName="Tests" />
+                <ScalarProperty Name="Medication" ColumnName="Medication" />
+                <ScalarProperty Name="SymptomsOrDiseaseName" ColumnName="SymptomsOrDiseaseName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSymptoms">
+            <EntityTypeMapping TypeName="HealthAndFitnessDBModel.UserSymptom">
+              <MappingFragment StoreEntitySet="UserSymptoms">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Symptoms" ColumnName="Symptoms" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

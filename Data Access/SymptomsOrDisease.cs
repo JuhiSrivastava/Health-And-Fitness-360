@@ -12,21 +12,18 @@ namespace Data_Access
     using System;
     using System.Collections.Generic;
     
-    public partial class UserInfo
+    public partial class SymptomsOrDisease
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserInfo()
+        public SymptomsOrDisease()
         {
             this.UserSymptoms = new HashSet<UserSymptom>();
         }
     
-        public string UserName { get; set; }
-        public int UserAge { get; set; }
-        public string UserHeight { get; set; }
-        public string UserWeight { get; set; }
-        public string UserMobile { get; set; }
-        public string EmailId { get; set; }
-        public string Password { get; set; }
+        public string SymptomsOrDiseaseName { get; set; }
+        public string Medication { get; set; }
+        public string Tests { get; set; }
+        public string Cure { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSymptom> UserSymptoms { get; set; }

@@ -5,7 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d13cc5c493f941ebbba28104743ff4df" Name="Diagram1">
-        <EntityTypeShape EntityType="HealthAndFitnessDBModel.UserInfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAndFitnessDBModel.UserInfo" Width="1.5" PointX="1.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAndFitnessDBModel.AgeGrpWorkout" Width="1.5" PointX="7.25" PointY="1.625" />
+        <EntityTypeShape EntityType="HealthAndFitnessDBModel.SymptomsOrDisease" Width="1.5" PointX="4.5" PointY="0.875" />
+        <EntityTypeShape EntityType="HealthAndFitnessDBModel.UserSymptom" Width="1.5" PointX="4.5" PointY="3.625" />
+        <AssociationConnector Association="HealthAndFitnessDBModel.FK_SymptomsOrDisease" />
+        <AssociationConnector Association="HealthAndFitnessDBModel.FK_Email_Address" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

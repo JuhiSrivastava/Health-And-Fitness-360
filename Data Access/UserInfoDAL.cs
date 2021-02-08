@@ -20,13 +20,13 @@ namespace Data_Access
             CustomDO custom = new CustomDO();
             UserInfo user = new UserInfo()
             {
-                UserID  = userInfo.UserID,
+                EmailId  = userInfo.EmailId,
                 UserName = userInfo.UserName,
                 UserAge = userInfo.UserAge,
                 UserHeight = userInfo.UserHeight,
                 UserWeight = userInfo.UserWeight,
                 UserMobile = userInfo.UserMobile,
-                Symptoms = userInfo.Symptoms
+                Password = userInfo.Password
             };
             healthAndFitnessDBEntities.UserInfoes.Add(user);
             int returnVal = healthAndFitnessDBEntities.SaveChanges();

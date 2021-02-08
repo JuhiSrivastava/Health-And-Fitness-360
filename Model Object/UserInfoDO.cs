@@ -9,7 +9,9 @@ namespace Model_Object
 {
     public class UserInfoDO
     {
-        public int UserID { get; set; }
+        [Display(Name = "Email Id")]
+        [Required(ErrorMessage = "Email Id is required.")]
+        public string EmailId { get; set; }
 
         [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Full Name is required.")]
@@ -31,8 +33,8 @@ namespace Model_Object
         [Required(ErrorMessage = "Mobine number is required.")]
         public string UserMobile { get; set; }
 
-        [Display(Name = "Symptoms")]
-        [Required(ErrorMessage = "Symptoms is required.")]
-        public string Symptoms { get; set; }
+        [Display(Name = "Password")]
+        [Required(ErrorMessage = "Password is required.")]
+        public string Password { get; set; }
     }
 }
