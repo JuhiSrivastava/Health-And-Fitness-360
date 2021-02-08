@@ -3,65 +3,143 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Welcome to Health And Fitness 360</h2>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-@using (Html.BeginForm(actionName: "Index", controllerName: "Home", routeValues:FormMethod.Post))
-{
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="form-group">
             @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control", placeholder = "Enter Email ID" })
             @Html.ValidationMessageFor(model => model.EmailId, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
         </div>
     </div>
     <div class="row">
         <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.UserName, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserAge, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.UserAge, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.UserAge, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserHeight, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.UserHeight, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.UserHeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserWeight, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.UserWeight, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.UserWeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserMobile, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.UserMobile, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.UserMobile, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-            @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", placeholder = "Enter Password", @type = "password" })
             @Html.ValidationMessageFor(model => model.Password, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
         </div>
     </div>
     <div class="row">
-        <div class="form-group">
-            <input type="submit" value="Save" name="save" class="btn btn-primary" />
+        <button type="submit" class="btn btn-primary button button4">Sign In</button>
+        <button id="btnShowModal" type="button" class="btn btn-primary button button4">Sign Up</button>
+    </div>
+
+</div>
+@using (Html.BeginForm(actionName: "Index", controllerName: "Home", routeValues: FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="modal fade" tabindex="-1" id="loginModal"
+                     data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    ×
+                                </button>
+                                <h4 class="modal-title">Registration</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control", placeholder = "Enter Email ID" })
+                                            @Html.ValidationMessageFor(model => model.EmailId, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @class = "form-control", placeholder = "Enter Full Name" })
+                                            @Html.ValidationMessageFor(model => model.UserName, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.UserAge, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBoxFor(model => model.UserAge, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Age" })
+                                            @Html.ValidationMessageFor(model => model.UserAge, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.UserHeight, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBoxFor(model => model.UserHeight, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
+                                            @Html.ValidationMessageFor(model => model.UserHeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.UserWeight, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBoxFor(model => model.UserWeight, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Weight" })
+                                            @Html.ValidationMessageFor(model => model.UserWeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.UserMobile, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBoxFor(model => model.UserMobile, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Mobile Number" })
+                                            @Html.ValidationMessageFor(model => model.UserMobile, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                                            @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", placeholder = "Enter a Password" })
+                                            @Html.ValidationMessageFor(model => model.Password, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" name="save" class="btn btn-primary button button4">
+                                    Save
+                                </button>
+                                <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
-
 }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+    </script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#loginModal").modal('show');
+            });
+
+            $("#btnHideModal").click(function () {
+                $("#loginModal").modal('hide');
+            });
+        });
+    </script>
