@@ -5,3 +5,182 @@
 
 <h2>DashBoard</h2>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<table style="width:100%">
+    <tr>
+        <td>
+            <div class="card">
+                <div class="wrap">
+                    <div class="happy-face"></div>
+                    <div class="sad-face"></div>
+                    <div class="meh-face"></div>
+                    <div class="normal-face"></div>
+                </div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content:Food Intake</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Energy Indicator/BMI</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+    </tr>
+</table>
+<br></br>
+<table style="width:100%">
+    <tr>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content:customized exercise/dietplan</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content:search symptom medication</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div id="piechart1"></div>
+            </div>
+        </td>
+    </tr>
+</table>
+<br></br>
+<table style="width:100%">
+    <tr>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Period and fertility tracker</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Pregnancy tracker</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Daily Habits</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+    </tr>
+</table>
+<br></br>
+<table style="width:100%">
+    <tr>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Doctor consult</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Karate/ self defence exercise</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content:weekly progress</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+    </tr>
+</table>
+<br></br>
+<table style="width:100%">
+    <tr>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Fitness band integration</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Distance Tracking and warning</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+        <td></td>
+        <td>
+            <div class="card">
+                <div class="card-header">Header</div>
+                <div class="card-body">Content: Specific allergy related</div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    // Load google charts
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Health', 'Percentage Health'],
+            ['Healthy', 50],
+            ['Average', 25],
+            ['Unhealthy', 45],
+        ]);
+      
+        
+        var options = { 'title': 'Health Monitor', 'width': 400, 'height': 400 };
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+
+        var data1 = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work', 8],
+            ['Eat', 2],
+            ['TV', 4],
+            ['Gym', 2],
+            ['Sleep', 8]
+        ]);
+        var options1 = { 'title': 'My Average Day', 'width': 400, 'height': 400 };
+        var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
+        chart1.draw(data1, options1);
+    }
+</script>

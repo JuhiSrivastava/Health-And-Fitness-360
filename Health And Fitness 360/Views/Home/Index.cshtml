@@ -3,46 +3,56 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Welcome to Health And Fitness 360</h2>
+<h2 style="text-align:center">Welcome to Health And Fitness 360</h2>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<div class="row justify-content-md-center">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                Login
-            </div>
-            <div class="card-body">
-                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control", placeholder = "Enter Email ID" })
-                        @Html.ValidationMessageFor(model => model.EmailId, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", placeholder = "Enter Password", @type = "password" })
-                        @Html.ValidationMessageFor(model => model.Password, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+<div class="container" style="margin-top:30px; display: flex;justify-content: center;align-items: center; margin-top:15%">
+    <div class="col-md-8">
+        <div class="modal-dialog" style="margin-bottom:0">
+            <div class="modal-content">
+                <div class="panel-heading" style="text-align:center;background-color: #222">
+                    <h3 class="panel-title" style=" font-size: 20px; color:white"> Login</h3>
+                </div>
+                <div class="panel-body">
+                        <fieldset>
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control", placeholder = "Enter Email ID" })
+                                    @Html.ValidationMessageFor(model => model.EmailId, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                </div>
 
-                    <div class="form-group">
-                        <button type="submit" name="submit" class="btn btn-primary button button4">Login</button>
-                        <button type="button" id="btnRegister" class="btn btn-primary button button4" onclick = "RedirectFn()">Register</button>
-                    </div>
-                }
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                                    @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", placeholder = "Enter Password", @type = "password" })
+                                    @Html.ValidationMessageFor(model => model.Password, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222">Login</button>
+                                    <button type="button" id="btnRegister" class="btn btn-primary button button4" style="background-color:#222" onclick="RedirectFn()">Register</button>
+                                </div>
+                            }
+
+                            <p style="color:red">@ViewBag.ErrorMessage</p>
+
+                        </fieldset>
+                </div>
             </div>
-            <p>@ViewBag.ErrorMessage</p>
         </div>
     </div>
+
 </div>
+
+
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script>
     function RedirectFn() {
         window.location = "/Home/Register/";
-    } 
-      
-    
+    }
+
+
 </script>

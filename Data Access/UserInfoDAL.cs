@@ -1,6 +1,8 @@
 ﻿using Model_Object;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +42,23 @@ namespace Data_Access
                 custom.CustomMessage = "Unable to Add User";
             }
             return custom;
+        }
+
+        public UserInfoDO GetUser(string emailId, string password)
+        {
+            UserInfoDO userInfo = new UserInfoDO();
+            UserInfo user = healthAndFitnessDBEntities.UserInfoes.FirstOrDefault(x => x.EmailId.Equals(emailId) && x.Password.Equals(password));
+            if (user != null)
+            {
+                userInfo.EmailId = user.EmailId;
+                userInfo.UserName = user.UserName;
+                userInfo.UserAge = user.UserAge;
+                userInfo.UserHeight = user.UserHeight;
+                userInfo.UserWeight = user.UserWeight;
+                userInfo.UserMobile = user.UserMobile;
+                userInfo.Password = userInfo.Password;
+            }
+            return userInfo;
         }
     }
 }

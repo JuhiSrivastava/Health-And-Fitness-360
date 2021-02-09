@@ -3,75 +3,88 @@
 @{
     ViewBag.Title = "Register";
 }
-<div class="row justify-content-md-center">
-    <div class="col-md-5">
-        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
-        {
-            //@Html.ValidationSummary()
-            @Html.AntiForgeryToken()
 
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Register</div>
+<div class="container" style="margin-top:30px; display: flex;justify-content: center;align-items: center;">
+    <div class="col-md-8">
+        <div class="modal-dialog" style="margin-bottom:0">
+            <div class="modal-content">
+                <div class="panel-heading" style="text-align:center;background-color: #222">
+                    <h3 class="panel-title" style=" font-size: 20px; color:white"> Register</h3>
                 </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control", placeholder = "Enter Email ID" })
-                        @Html.ValidationMessageFor(model => model.EmailId, validationMessage: null, htmlAttributes: new { @class = "badge badge-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @class = "form-control", placeholder = "Enter Full Name" })
-                        @Html.ValidationMessageFor(model => model.UserName, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+                <div class="panel-body">
+                    <fieldset>
+                        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+                        {
+                            //@Html.ValidationSummary()
+                            @Html.AntiForgeryToken()
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UserAge, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.UserAge, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Age" })
-                        @Html.ValidationMessageFor(model => model.UserAge, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.EmailId, htmlAttributes: new { @class = "form-control", placeholder = "Enter Email ID" })
+                                        @Html.ValidationMessageFor(model => model.EmailId, validationMessage: null, htmlAttributes: new { @class = "badge badge-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @class = "form-control", placeholder = "Enter Full Name" })
+                                        @Html.ValidationMessageFor(model => model.UserName, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UserHeight, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.UserHeight, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
-                        @Html.ValidationMessageFor(model => model.UserHeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.UserAge, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.UserAge, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Age" })
+                                        @Html.ValidationMessageFor(model => model.UserAge, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UserWeight, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.UserWeight, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Weight" })
-                        @Html.ValidationMessageFor(model => model.UserWeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.UserHeight, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.UserHeight, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
+                                        @Html.ValidationMessageFor(model => model.UserHeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UserMobile, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.UserMobile, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Mobile Number" })
-                        @Html.ValidationMessageFor(model => model.UserMobile, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.UserWeight, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.UserWeight, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Weight" })
+                                        @Html.ValidationMessageFor(model => model.UserWeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", placeholder = "Create a Password", @type = "password" })
-                        @Html.ValidationMessageFor(model => model.Password, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.UserMobile, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.UserMobile, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Mobile Number" })
+                                        @Html.ValidationMessageFor(model => model.UserMobile, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "form-control", placeholder = "Confirm your Password", @type = "password" })
-                        @Html.ValidationMessageFor(model => model.ConfirmPassword, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
-                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", placeholder = "Create a Password", @type = "password" })
+                                        @Html.ValidationMessageFor(model => model.Password, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                    </div>
 
-                    <div class="form-group">
-                        <input type="submit" name="submit" class="btn btn-primary button button4" value="Register" />
-                        <input type="button" id="btnCancel" name="cancel" class="btn btn-primary button button4" value="Cancel" onclick = "RedirectFn()"/>
-                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                                        @Html.TextBoxFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "form-control", placeholder = "Confirm your Password", @type = "password" })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Register" />
+                                        <input type="button" id="btnCancel" name="cancel" class="btn btn-primary button button4" style="background-color:#222" value="Cancel" onclick="RedirectFn()" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </fieldset>
                 </div>
             </div>
-
-        }
+        </div>
     </div>
+
 </div>
+
+                       
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script>
     function RedirectFn() {

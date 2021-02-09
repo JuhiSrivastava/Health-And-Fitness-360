@@ -25,16 +25,21 @@ namespace Health_And_Fitness_360.Controllers
         {
             if (ModelState.IsValid && emailId.Length > 0 && password.Length > 0)
             {
-                var f_password = GetMD5(password);
-
-                //var data = _db.Users.Where(s => s.Email.Equals(email) && s.Password.Equals(f_password)).ToList();
-                if (true)//data.Count() > 0)
+                UserInfoBL userInfoBL = new UserInfoBL();
+                UserInfoDO userInfo = userInfoBL.GetUser(emailId, GetMD5(password));
+                if (userInfo.EmailId != null)
                 {
+                    return RedirectToAction("DashBoard");
                     //add session
                     //Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
                     //Session["Email"] = data.FirstOrDefault().Email;
                     //Session["idUser"] = data.FirstOrDefault().idUser;
-                    return RedirectToAction("DashBoard");
+                    //return RedirectToAction("DashBoard");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Login failed";
+                    return View();
                 }
             }
             else

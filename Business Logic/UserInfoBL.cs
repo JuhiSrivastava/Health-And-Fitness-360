@@ -14,5 +14,9 @@ namespace Business_Logic
         {
             return new UserInfoDAL().AddUser(userInfo);
         }
+        public UserInfoDO GetUser(string emailId, string password)
+        {
+            return new UserInfoDAL().GetUser(emailId, password);
+        }
     }
 }
