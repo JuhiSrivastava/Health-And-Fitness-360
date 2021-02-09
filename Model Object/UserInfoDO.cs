@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model_Object
 {
@@ -11,6 +12,7 @@ namespace Model_Object
     {
         [Display(Name = "Email Id")]
         [Required(ErrorMessage = "Email Id is required.")]
+        [EmailAddress(ErrorMessage = "Please enter a valid Email Id.")]
         public string EmailId { get; set; }
 
         [Display(Name = "Full Name")]
@@ -33,8 +35,17 @@ namespace Model_Object
         [Required(ErrorMessage = "Mobine number is required.")]
         public string UserMobile { get; set; }
 
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [NotMapped]
+        [Required]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
     }
 }
