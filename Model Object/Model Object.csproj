@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgeGrpWorkoutDO.cs" />
     <Compile Include="CustomDO.cs" />
     <Compile Include="UserInfoDO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

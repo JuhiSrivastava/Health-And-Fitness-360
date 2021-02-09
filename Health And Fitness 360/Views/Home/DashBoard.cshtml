@@ -5,7 +5,7 @@
 <h2 style="text-align:center">Welcome to your All in One Portal</h2>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <div class="jumbotron">
-    <h3>Heath Monitor through BMI</h3>
+    <h3 style="text-align:center">Heath Monitor through BMI</h3>
     <h5>BMI = @ViewBag.BMI</h5>
     <table style="width:100%;table-layout: fixed">
         <tr style="font-size:15px">
@@ -42,7 +42,30 @@
         </td>
     </tr>
 </table>
-
+<div class="jumbotron">
+    <h3 style="text-align:center">Regular Fitness </h3>
+   <br />
+    <table style="width:100%;table-layout: fixed">
+        <tr style="font-size:15px">
+            <td>
+                <h4>6 benefits of regular physical activity</h4>
+                <ol>
+                    <li>Exercise controls weight</li>
+                    <li>Exercise combats health conditions and diseases</li>
+                    <li>Exercise improves mood</li>
+                    <li>Exercise boosts energy</li>
+                    <li>Exercise promotes better sleep</li>
+                    <li>Exercise can be fun … and social!</li>
+                </ol>
+            </td>
+            <td id="Plan1"><h4>We have customized this video tutorial based upon your heath and food intake</h4>
+             
+            <iframe type="text/html" width="100%" height="200px" src=@ViewBag.Workout frameborder="0"></iframe>
+            </td>
+        </tr>
+        
+    </table>
+</div>
     <div class="jumbotron">
         <h3>Comming Soon</h3>
         <table style="width:100%">
@@ -213,7 +236,7 @@
         var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
         chart1.draw(data1, options1);
     }
-
+        
     </script>
 
     <style>

@@ -30,6 +30,8 @@ namespace Health_And_Fitness_360.Controllers
                 if (userInfo.EmailId != null)
                 {
                     Session["UserInfo"] = userInfo;
+                    AgeGrpWorkoutDO ageGrpWorkout = this.HelperRegularFitness(userInfo.UserAge);
+                    Session["ageGrpWorkout"] = ageGrpWorkout;
                     return RedirectToAction("DashBoard");
                 }
                 else
@@ -60,6 +62,8 @@ namespace Health_And_Fitness_360.Controllers
                 userInfoDO.Password = GetMD5(userInfoDO.Password);
                 CustomDO customDO = userInfoBL.AddUser(userInfoDO);
                 Session["UserInfo"] = userInfoDO;
+                AgeGrpWorkoutDO ageGrpWorkout = this.HelperRegularFitness(userInfoDO.UserAge);
+                Session["ageGrpWorkout"] = ageGrpWorkout;
                 return RedirectToAction("DashBoard");
             }
             return View(userInfoDO);
@@ -70,16 +74,23 @@ namespace Health_And_Fitness_360.Controllers
 
         public ActionResult DashBoard()
         {
+            //Monitor Health
             UserInfoBL userInfoBL = new UserInfoBL();
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
             double height = Convert.ToDouble(userInfo.UserHeight);
             double weight = Convert.ToDouble(userInfo.UserWeight);
             int age = Convert.ToInt32(userInfo.UserAge);
             string StatusMonitorHealth = userInfoBL.BMICalculation(height,weight,age);
-           
             String[] strlist = StatusMonitorHealth.Split();
             ViewBag.Status = strlist[0];
             ViewBag.BMI = strlist[1];
+
+            //Regular Fitness
+            AgeGrpWorkoutBL ageGrpWorkoutBL = new AgeGrpWorkoutBL();
+            AgeGrpWorkoutDO ageGrpWorkout = Session["ageGrpWorkout"] as AgeGrpWorkoutDO;
+            int currentPlan = Convert.ToInt32(ageGrpWorkout.Workout_Plan.Last().ToString());
+            string newPlanWorkout = ageGrpWorkoutBL.getModifiedPlan(0, Convert.ToInt32(ageGrpWorkout.Calories), currentPlan);
+            ViewBag.Workout = "https://www.youtube.com/embed/" + newPlanWorkout;
             return View();
         }
         
@@ -107,5 +118,12 @@ namespace Health_And_Fitness_360.Controllers
             return byte2String;
         }
 
+        public AgeGrpWorkoutDO HelperRegularFitness(int age)
+        {
+            //Regular Fitness
+            AgeGrpWorkoutBL ageGrpWorkoutBL = new AgeGrpWorkoutBL();
+            AgeGrpWorkoutDO ageGrpWorkout = ageGrpWorkoutBL.GetAgrGrpWorkout(age);
+            return ageGrpWorkout;
+        }
     }
 }
