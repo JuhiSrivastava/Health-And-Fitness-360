@@ -2,156 +2,186 @@
 @{
     ViewBag.Title = "DashBoard";
 }
+<h2 style="text-align:center">Welcome to your All in One Portal</h2>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<div class="jumbotron">
+    <h3>Heath Monitor through BMI</h3>
+    <h5>BMI = @ViewBag.BMI</h5>
+    <table style="width:100%;table-layout: fixed">
+        <tr style="font-size:15px">
+            <td style="visibility:hidden" id="1">You are here: <i class="arrow down"></i></td>
+            <td style="visibility:hidden" id="2">You are here: <i class="arrow down"></i></td>
+            <td style="visibility:hidden" id="3">You are here: <i class="arrow down"></i></td>
+            <td style="visibility:hidden" id="4">You are here: <i class="arrow down"></i></td>
+            <td style="visibility:hidden" id="5">You are here: <i class="arrow down"></i></td>
+            <td style="visibility:hidden" id="6">You are here: <i class="arrow down"></i></td>
+            <td style="visibility:hidden" id="7">You are here: <i class="arrow down"></i></td>
+            <td style="visibility:hidden" id="8">You are here: <i class="arrow down"></i></td>
+        </tr>
+        <tr style="font-size:15px">
+            <td style="background-color:red">Severe Thinness</td>
+            <td style="background-color:darkorange">Moderate Thinness</td>
+            <td style="background-color:orange">Mild Thinness</td>
+            <td style="background-color:yellow">Healthy</td>
+            <td style="background-color:orange">Overweight</td>
+            <td style="background-color:darkorange">Obese Class I</td>
+            <td style="background-color:red">Obese Class II</td>
+            <td style="background-color:red">Obese Class III</td>
+        </tr>
+    </table>
+</div>
 
-<h2>DashBoard</h2>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <table style="width:100%">
     <tr>
-        <td>
-            <div class="card">
-                <div class="wrap">
-                    <div class="happy-face"></div>
-                    <div class="sad-face"></div>
-                    <div class="meh-face"></div>
-                    <div class="normal-face"></div>
-                </div>
-            </div>
+        <td style="width:49%">
+            <div class="jumbotron">Energy Indicator</div>
         </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content:Food Intake</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Energy Indicator/BMI</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-    </tr>
-</table>
-<br></br>
-<table style="width:100%">
-    <tr>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content:customized exercise/dietplan</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content:search symptom medication</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div id="piechart1"></div>
-            </div>
-        </td>
-    </tr>
-</table>
-<br></br>
-<table style="width:100%">
-    <tr>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Period and fertility tracker</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Pregnancy tracker</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Daily Habits</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-    </tr>
-</table>
-<br></br>
-<table style="width:100%">
-    <tr>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Doctor consult</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Karate/ self defence exercise</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content:weekly progress</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-    </tr>
-</table>
-<br></br>
-<table style="width:100%">
-    <tr>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Fitness band integration</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Distance Tracking and warning</div>
-                <div class="card-footer">Footer</div>
-            </div>
-        </td>
-        <td></td>
-        <td>
-            <div class="card">
-                <div class="card-header">Header</div>
-                <div class="card-body">Content: Specific allergy related</div>
-                <div class="card-footer">Footer</div>
-            </div>
+        <td style="width:2%"> </td>
+        <td style="width:49%">
+            <div class="jumbotron">Regular Fitness</div>
         </td>
     </tr>
 </table>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div class="jumbotron">
+        <h3>Comming Soon</h3>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content:Food Intake</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Energy Indicator/BMI</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br></br>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content:customized exercise/dietplan</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content:search symptom medication</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div id="piechart1"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br></br>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Period and fertility tracker</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Pregnancy tracker</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Daily Habits</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br></br>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Doctor consult</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Karate/ self defence exercise</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content:weekly progress</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br></br>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Fitness band integration</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Distance Tracking and warning</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <div class="card">
+                        <div class="card-header">Header</div>
+                        <div class="card-body">Content: Specific allergy related</div>
+                        <div class="card-footer">Footer</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-<script type="text/javascript">
+    </div>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+    document.getElementById(@ViewBag.Status).style.visibility = "visible";
     // Load google charts
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
@@ -164,8 +194,8 @@
             ['Average', 25],
             ['Unhealthy', 45],
         ]);
-      
-        
+
+
         var options = { 'title': 'Health Monitor', 'width': 400, 'height': 400 };
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -183,4 +213,19 @@
         var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
         chart1.draw(data1, options1);
     }
-</script>
+
+    </script>
+
+    <style>
+        .arrow {
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+        }
+
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+    </style>

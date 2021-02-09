@@ -29,12 +29,8 @@ namespace Health_And_Fitness_360.Controllers
                 UserInfoDO userInfo = userInfoBL.GetUser(emailId, GetMD5(password));
                 if (userInfo.EmailId != null)
                 {
+                    Session["UserInfo"] = userInfo;
                     return RedirectToAction("DashBoard");
-                    //add session
-                    //Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
-                    //Session["Email"] = data.FirstOrDefault().Email;
-                    //Session["idUser"] = data.FirstOrDefault().idUser;
-                    //return RedirectToAction("DashBoard");
                 }
                 else
                 {
@@ -63,6 +59,7 @@ namespace Health_And_Fitness_360.Controllers
                 UserInfoBL userInfoBL = new UserInfoBL();
                 userInfoDO.Password = GetMD5(userInfoDO.Password);
                 CustomDO customDO = userInfoBL.AddUser(userInfoDO);
+                Session["UserInfo"] = userInfoDO;
                 return RedirectToAction("DashBoard");
             }
             return View(userInfoDO);
@@ -73,6 +70,16 @@ namespace Health_And_Fitness_360.Controllers
 
         public ActionResult DashBoard()
         {
+            UserInfoBL userInfoBL = new UserInfoBL();
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            double height = Convert.ToDouble(userInfo.UserHeight);
+            double weight = Convert.ToDouble(userInfo.UserWeight);
+            int age = Convert.ToInt32(userInfo.UserAge);
+            string StatusMonitorHealth = userInfoBL.BMICalculation(height,weight,age);
+           
+            String[] strlist = StatusMonitorHealth.Split();
+            ViewBag.Status = strlist[0];
+            ViewBag.BMI = strlist[1];
             return View();
         }
         
