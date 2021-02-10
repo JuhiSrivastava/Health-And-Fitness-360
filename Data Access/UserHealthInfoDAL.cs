@@ -37,7 +37,8 @@ namespace Data_Access
             Medication2 = userHealthInfo.Medication2,
             StartDateM2 = userHealthInfo.StartDateM2,
             DurationM2 = userHealthInfo.DurationM2,
-            MensturalCycleDuration = userHealthInfo.MensturalCycleDuration
+            MenstrualCycleDuration = userHealthInfo.MenstrualCycleDuration,
+            PregnancyDate = userHealthInfo.PregnancyDate
             };
             healthAndFitnessDBEntities.UserHealthInfoes.Add(userHealth);
             int returnVal = healthAndFitnessDBEntities.SaveChanges();
@@ -76,7 +77,8 @@ namespace Data_Access
                 userHealthInfo.Medication2 = userHealth.Medication2;
                 userHealthInfo.StartDateM2 = userHealth.StartDateM2;
                 userHealthInfo.DurationM2 = userHealth.DurationM2;
-                userHealthInfo.MensturalCycleDuration = userHealth.MensturalCycleDuration;
+                userHealthInfo.MenstrualCycleDuration = userHealth.MenstrualCycleDuration;
+                userHealthInfo.PregnancyDate = userHealth.PregnancyDate;
             }
             return userHealthInfo;
         }
@@ -102,7 +104,8 @@ namespace Data_Access
             userHealthInfo.Medication2 = modifiedUserHealthInfo.Medication2;
             userHealthInfo.StartDateM2 = modifiedUserHealthInfo.StartDateM2;
             userHealthInfo.DurationM2 = modifiedUserHealthInfo.DurationM2;
-            userHealthInfo.MensturalCycleDuration = modifiedUserHealthInfo.MensturalCycleDuration;
+            userHealthInfo.MenstrualCycleDuration = modifiedUserHealthInfo.MenstrualCycleDuration;
+            userHealthInfo.PregnancyDate = modifiedUserHealthInfo.PregnancyDate;
             int returnVal = healthAndFitnessDBEntities.SaveChanges();
             custom.CustomId = returnVal;
             if (returnVal > 0)

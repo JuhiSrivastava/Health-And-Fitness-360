@@ -31,7 +31,8 @@ namespace Data_Access
         public string Medication2 { get; set; }
         public Nullable<System.DateTime> StartDateM2 { get; set; }
         public Nullable<int> DurationM2 { get; set; }
-        public Nullable<int> MensturalCycleDuration { get; set; }
+        public Nullable<int> MenstrualCycleDuration { get; set; }
+        public Nullable<System.DateTime> PregnancyDate { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
     }

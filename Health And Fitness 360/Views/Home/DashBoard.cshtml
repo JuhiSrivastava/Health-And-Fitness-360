@@ -33,7 +33,7 @@
 
 <table style="width:100%">
     <tr>
-        <td style="width:49%">
+        <td style="width:45%">
             <div class="jumbotron">
                 Energy Indicator
                 <h5>Calories: @ViewBag.Calories</h5>
@@ -63,18 +63,18 @@
 
             </div>
         </td>
-        <td style="width:2%"> </td>
-        <td style="width:49%">
+        <td style="width:1%"> </td>
+        <td style="width:54%">
             <div class="jumbotron">
                 Menstrual cycle and fertility tracker
                 <table>
                     <tr>
-                        <td><h5>Menstrual Start Date: @ViewBag.Calories</h5></td>
-                        <td><h5>Monthly Cycle Durarion: @ViewBag.Calories</h5></td>
-                        <td><h5>Fertility Days: @ViewBag.Calories</h5></td>
+                        <td><h5>Menstrual Start Date: @ViewBag.MenstrualStartDate</h5></td>
+                        <td><h5>Monthly Cycle Durarion: @ViewBag.MensturalCycleDuration</h5></td>
+                        <td><h5>Fertility Days: @ViewBag.FertilityDays</h5></td>
                     </tr>
                 </table>
-                <h5>Today is @ViewBag.Calories day of your menstrual cycle and @ViewBag.Calories days are left for upcoming Menstrual Cycle</h5>
+                <h5>Today is @ViewBag.TodayDay day of your menstrual cycle and @ViewBag.LeftDay days are left for upcoming Menstrual Cycle</h5>
                 @using (Html.BeginForm("MenstrualAndFertilityTracker", "Home", FormMethod.Post))
                 {
                     //@Html.ValidationSummary()

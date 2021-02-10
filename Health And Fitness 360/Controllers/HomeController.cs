@@ -85,64 +85,17 @@ namespace Health_And_Fitness_360.Controllers
         public ActionResult DashBoard()
         {
             //Monitor Health
-            UserInfoBL userInfoBL = new UserInfoBL();
-            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
-            double height = Convert.ToDouble(userInfo.UserHeight);
-            double weight = Convert.ToDouble(userInfo.UserWeight);
-            int age = Convert.ToInt32(userInfo.UserAge);
-            string StatusMonitorHealth = userInfoBL.BMICalculation(height,weight,age);
-            String[] strlist = StatusMonitorHealth.Split();
-            ViewBag.Status = strlist[0];
-            ViewBag.BMI = strlist[1];
+            this.MonitorHealthHelper();
 
             //Regular Fitness
-            AgeGrpWorkoutBL ageGrpWorkoutBL = new AgeGrpWorkoutBL();
-            AgeGrpWorkoutDO ageGrpWorkout = Session["ageGrpWorkout"] as AgeGrpWorkoutDO;
-            int currentPlan = Convert.ToInt32(ageGrpWorkout.Workout_Plan.Last().ToString());
-            string newPlanWorkout = ageGrpWorkoutBL.getModifiedPlan(0, Convert.ToInt32(ageGrpWorkout.Calories), currentPlan);
-            ViewBag.Workout = "https://www.youtube.com/embed/" + newPlanWorkout;
+            this.RegularFitnessHelper(); 
 
             //Energy Indicator
-            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
-            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
-            int currentCalories = (int)userHealthInfoDO.CurrentCalories;
-            int requiredCalories = Convert.ToInt32(ageGrpWorkout.Calories);
-            double PercentageCalories = ((double)currentCalories/ requiredCalories)*100;
-            double Calories = Math.Round(PercentageCalories);
-            if (currentCalories <= requiredCalories)
-            {
-                ViewBag.Calories = Calories.ToString() + "%";
-                ViewBag.NeedCalories = "You need to consume " + (requiredCalories - currentCalories).ToString() + " calories more to achieve daily goal.";
-            }
-            else
-            {
-                ViewBag.Calories = "100%";
-                ViewBag.NeedCalories = "Congratulations you have completd your goal. Extra Calories :" + (currentCalories - requiredCalories).ToString() + " calories.";
-            }
-            FoodItemsBL foodItemsBL = new FoodItemsBL();
-            List<FoodItemsDO> FoodItemList = foodItemsBL.GetFoodItems();
-            List<string> items = new List<string>();
-            
-            List<SelectListItem> selectListItems1 = new List<SelectListItem>();
-            List<SelectListItem> selectListItems2 = new List<SelectListItem>();
-            int i = 1;
-            foreach (FoodItemsDO foodItems in FoodItemList)
-            {
-                selectListItems1.Add(new SelectListItem { Text = foodItems.FoodItems, Value = foodItems.FoodItems });
-                selectListItems2.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
-                i++;
-            }
-            while(i<=20)
-            {
-                selectListItems2.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
-                i++;
-            }
-            selectListItems1.First().Selected = true;
-            selectListItems2.First().Selected = true;
+            this.EnergyIndicatorHelper();
 
-            ViewBag.FoodItems = selectListItems1;
-            ViewBag.Amount = selectListItems2;
-            Session["foodItemList"] = FoodItemList;
+            //Menstrual Cycle And Fertility Tracker
+            this.MenstrualCycleAndFertilityTracker();
+
             return View();
         }
 
@@ -166,14 +119,13 @@ namespace Health_And_Fitness_360.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult MenstrualAndFertilityTracker(FormCollection formCollection)
         {
-            string amount = formCollection["Amount"];
-            string item = formCollection["FoodItems"];
+            DateTime StartDate = Convert.ToDateTime(formCollection["MenstrualStartDate"]);
+            int monthlyCycle = Convert.ToInt32(formCollection["MonthlyCycle"]);
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
-            List<FoodItemsDO> FoodItemList = Session["foodItemList"] as List<FoodItemsDO>;
             UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
             UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
-            FoodItemsDO fooditem = FoodItemList.FirstOrDefault(x => x.FoodItems.Equals(item));
-            userHealthInfoDO.CurrentCalories += fooditem.Calories * Convert.ToInt32(amount);
+            userHealthInfoDO.PeriodDate = StartDate;
+            userHealthInfoDO.MenstrualCycleDuration = monthlyCycle;
             CustomDO customDO = userHealthInfo.UpdateUserHealthInfo(userHealthInfoDO);
             return RedirectToAction("DashBoard");
         }
@@ -209,6 +161,94 @@ namespace Health_And_Fitness_360.Controllers
             AgeGrpWorkoutBL ageGrpWorkoutBL = new AgeGrpWorkoutBL();
             AgeGrpWorkoutDO ageGrpWorkout = ageGrpWorkoutBL.GetAgrGrpWorkout(age);
             return ageGrpWorkout;
+        }
+
+        public void MonitorHealthHelper()
+        {
+            UserInfoBL userInfoBL = new UserInfoBL();
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            double height = Convert.ToDouble(userInfo.UserHeight);
+            double weight = Convert.ToDouble(userInfo.UserWeight);
+            int age = Convert.ToInt32(userInfo.UserAge);
+            string StatusMonitorHealth = userInfoBL.BMICalculation(height, weight, age);
+            String[] strlist = StatusMonitorHealth.Split();
+            ViewBag.Status = strlist[0];
+            ViewBag.BMI = strlist[1];
+
+        }
+
+        public void RegularFitnessHelper()
+        {
+            AgeGrpWorkoutBL ageGrpWorkoutBL = new AgeGrpWorkoutBL();
+            AgeGrpWorkoutDO ageGrpWorkout = Session["ageGrpWorkout"] as AgeGrpWorkoutDO;
+            int currentPlan = Convert.ToInt32(ageGrpWorkout.Workout_Plan.Last().ToString());
+            string newPlanWorkout = ageGrpWorkoutBL.getModifiedPlan(0, Convert.ToInt32(ageGrpWorkout.Calories), currentPlan);
+            ViewBag.Workout = "https://www.youtube.com/embed/" + newPlanWorkout;
+        }
+
+        public void EnergyIndicatorHelper()
+        {
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            AgeGrpWorkoutDO ageGrpWorkout = Session["ageGrpWorkout"] as AgeGrpWorkoutDO;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            int currentCalories = (int)userHealthInfoDO.CurrentCalories;
+            int requiredCalories = Convert.ToInt32(ageGrpWorkout.Calories);
+            double PercentageCalories = ((double)currentCalories / requiredCalories) * 100;
+            double Calories = Math.Round(PercentageCalories);
+            if (currentCalories <= requiredCalories)
+            {
+                ViewBag.Calories = Calories.ToString() + "%";
+                ViewBag.NeedCalories = "You need to consume " + (requiredCalories - currentCalories).ToString() + " calories more to achieve daily goal.";
+            }
+            else
+            {
+                ViewBag.Calories = "100%";
+                ViewBag.NeedCalories = "Congratulations you have completd your goal. Extra Calories :" + (currentCalories - requiredCalories).ToString() + " calories.";
+            }
+            FoodItemsBL foodItemsBL = new FoodItemsBL();
+            List<FoodItemsDO> FoodItemList = foodItemsBL.GetFoodItems();
+            List<string> items = new List<string>();
+
+            List<SelectListItem> selectListItems1 = new List<SelectListItem>();
+            List<SelectListItem> selectListItems2 = new List<SelectListItem>();
+            int i = 1;
+            foreach (FoodItemsDO foodItems in FoodItemList)
+            {
+                selectListItems1.Add(new SelectListItem { Text = foodItems.FoodItems, Value = foodItems.FoodItems });
+                selectListItems2.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                i++;
+            }
+            while (i <= 20)
+            {
+                selectListItems2.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                i++;
+            }
+            selectListItems1.First().Selected = true;
+            selectListItems2.First().Selected = true;
+
+            ViewBag.FoodItems = selectListItems1;
+            ViewBag.Amount = selectListItems2;
+            Session["foodItemList"] = FoodItemList;
+        }
+
+        public void MenstrualCycleAndFertilityTracker()
+        {
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            DateTime MenstrualStartDate = (userHealthInfoDO.PeriodDate == null) ? DateTime.Today : ((DateTime)userHealthInfoDO.PeriodDate);
+            int MensturalCycleDuration = (userHealthInfoDO.MenstrualCycleDuration == null) ? 28 : (int)userHealthInfoDO.MenstrualCycleDuration;
+            ViewBag.MenstrualStartDate = MenstrualStartDate.ToShortDateString();
+            ViewBag.MensturalCycleDuration = MensturalCycleDuration;
+            DateTime EndDate = MenstrualStartDate.AddDays(MensturalCycleDuration);
+            DateTime date1 = MenstrualStartDate.AddDays(MensturalCycleDuration - 16);
+            DateTime date2 = MenstrualStartDate.AddDays(MensturalCycleDuration - 15);
+            DateTime date3 = MenstrualStartDate.AddDays(MensturalCycleDuration-14);
+            ViewBag.FertilityDays = date1.ToShortDateString() + ", " + date2.ToShortDateString() + " and " + date3.ToShortDateString();
+            ViewBag.TodayDay = (DateTime.Today.Date - MenstrualStartDate).TotalDays;
+            ViewBag.LeftDay = MensturalCycleDuration - (DateTime.Today.Date - MenstrualStartDate).TotalDays;
+            
         }
     }
 }

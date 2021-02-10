@@ -52,7 +52,8 @@
           <Property Name="Medication2" Type="nvarchar" MaxLength="50" />
           <Property Name="StartDateM2" Type="datetime" />
           <Property Name="DurationM2" Type="int" />
-          <Property Name="MensturalCycleDuration" Type="int" />
+          <Property Name="MenstrualCycleDuration" Type="int" />
+          <Property Name="PregnancyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -253,7 +254,8 @@
           <Property Name="StartDateM2" Type="DateTime" Precision="3" />
           <Property Name="DurationM2" Type="Int32" />
           <NavigationProperty Name="UserInfo" Relationship="HealthAndFitnessDBModel.FK_UserHealthInfo_UserInfo" FromRole="UserHealthInfo" ToRole="UserInfo" />
-          <Property Name="MensturalCycleDuration" Type="Int32" />
+          <Property Name="MenstrualCycleDuration" Type="Int32" />
+          <Property Name="PregnancyDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_UserHealthInfo_UserInfo">
           <End Type="HealthAndFitnessDBModel.UserInfo" Role="UserInfo" Multiplicity="1" />
@@ -328,7 +330,8 @@
           <EntitySetMapping Name="UserHealthInfoes">
             <EntityTypeMapping TypeName="HealthAndFitnessDBModel.UserHealthInfo">
               <MappingFragment StoreEntitySet="UserHealthInfo">
-                <ScalarProperty Name="MensturalCycleDuration" ColumnName="MensturalCycleDuration" />
+                <ScalarProperty Name="PregnancyDate" ColumnName="PregnancyDate" />
+                <ScalarProperty Name="MenstrualCycleDuration" ColumnName="MenstrualCycleDuration" />
                 <ScalarProperty Name="DurationM2" ColumnName="DurationM2" />
                 <ScalarProperty Name="StartDateM2" ColumnName="StartDateM2" />
                 <ScalarProperty Name="Medication2" ColumnName="Medication2" />

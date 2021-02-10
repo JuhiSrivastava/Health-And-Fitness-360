@@ -19,7 +19,7 @@ namespace Model_Object
         public int? Calories_Day_6 { get; set; }
         public int? Calories_Day_7 { get; set; }
         public int? CurrentCalories { get; set; }
-        [DisplayName("Menstural Start Date")]
+        [DisplayName("Menstrual Start Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? PeriodDate { get; set; }
         public DateTime? FertilityDate { get; set; }
@@ -29,8 +29,9 @@ namespace Model_Object
         public string Medication2 { get; set; }
         public DateTime? StartDateM2 { get; set; }
         public int? DurationM2 { get; set; }
-        [DisplayName("Menstural Cycle Duration")]
-        public int? MensturalCycleDuration { get; set; }
-
+        [DisplayName("Menstrual Cycle Duration")]
+        public int? MenstrualCycleDuration { get; set; }
+        [DisplayName("Pregnancy Start Date")]
+        public DateTime? PregnancyDate { get; set; }
     }
 }
