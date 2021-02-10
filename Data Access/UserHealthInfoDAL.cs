@@ -36,7 +36,8 @@ namespace Data_Access
             DurationM1 = userHealthInfo.DurationM1,
             Medication2 = userHealthInfo.Medication2,
             StartDateM2 = userHealthInfo.StartDateM2,
-            DurationM2 = userHealthInfo.DurationM2
+            DurationM2 = userHealthInfo.DurationM2,
+            MensturalCycleDuration = userHealthInfo.MensturalCycleDuration
             };
             healthAndFitnessDBEntities.UserHealthInfoes.Add(userHealth);
             int returnVal = healthAndFitnessDBEntities.SaveChanges();
@@ -75,8 +76,44 @@ namespace Data_Access
                 userHealthInfo.Medication2 = userHealth.Medication2;
                 userHealthInfo.StartDateM2 = userHealth.StartDateM2;
                 userHealthInfo.DurationM2 = userHealth.DurationM2;
+                userHealthInfo.MensturalCycleDuration = userHealth.MensturalCycleDuration;
             }
             return userHealthInfo;
+        }
+
+        public CustomDO UpdateUserHealthInfo(UserHealthInfoDO modifiedUserHealthInfo)
+        {
+            CustomDO custom = new CustomDO();
+            UserHealthInfo userHealthInfo = healthAndFitnessDBEntities.UserHealthInfoes.FirstOrDefault(x => x.EmailId.Equals(modifiedUserHealthInfo.EmailId));
+            userHealthInfo.EmailId = modifiedUserHealthInfo.EmailId;
+            userHealthInfo.Calories_Day_1 = modifiedUserHealthInfo.Calories_Day_1;
+            userHealthInfo.Calories_Day_2 = modifiedUserHealthInfo.Calories_Day_2;
+            userHealthInfo.Calories_Day_3 = modifiedUserHealthInfo.Calories_Day_3;
+            userHealthInfo.Calories_Day_4 = modifiedUserHealthInfo.Calories_Day_4;
+            userHealthInfo.Calories_Day_5 = modifiedUserHealthInfo.Calories_Day_5;
+            userHealthInfo.Calories_Day_6 = modifiedUserHealthInfo.Calories_Day_6;
+            userHealthInfo.Calories_Day_7 = modifiedUserHealthInfo.Calories_Day_7;
+            userHealthInfo.CurrentCalories = modifiedUserHealthInfo.CurrentCalories;
+            userHealthInfo.PeriodDate = modifiedUserHealthInfo.PeriodDate;
+            userHealthInfo.FertilityDate = modifiedUserHealthInfo.FertilityDate;
+            userHealthInfo.Medication1 = modifiedUserHealthInfo.Medication1;
+            userHealthInfo.StartDateM1 = modifiedUserHealthInfo.StartDateM1;
+            userHealthInfo.DurationM1 = modifiedUserHealthInfo.DurationM1;
+            userHealthInfo.Medication2 = modifiedUserHealthInfo.Medication2;
+            userHealthInfo.StartDateM2 = modifiedUserHealthInfo.StartDateM2;
+            userHealthInfo.DurationM2 = modifiedUserHealthInfo.DurationM2;
+            userHealthInfo.MensturalCycleDuration = modifiedUserHealthInfo.MensturalCycleDuration;
+            int returnVal = healthAndFitnessDBEntities.SaveChanges();
+            custom.CustomId = returnVal;
+            if (returnVal > 0)
+            {
+                custom.CustomMessage = "Data Successfully Added";
+            }
+            else
+            {
+                custom.CustomMessage = "Unable to Add User";
+            }
+            return custom;
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Business_Logic
 {
     public class FoodItemsBL
     {
-        public List<FoodItemsDO> GetFoodItems(List<string> foodItemsList)
+        public List<FoodItemsDO> GetFoodItems()
         {
-            return new FoodItemsDAL().GetFoodItems(foodItemsList);
+            return new FoodItemsDAL().GetFoodItems();
         }
     }
 }

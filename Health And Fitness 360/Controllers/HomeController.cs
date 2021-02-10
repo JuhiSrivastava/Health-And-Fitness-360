@@ -58,9 +58,19 @@ namespace Health_And_Fitness_360.Controllers
         {
             if(ModelState.IsValid)
             {
+                // Add user info
                 UserInfoBL userInfoBL = new UserInfoBL();
                 userInfoDO.Password = GetMD5(userInfoDO.Password);
                 CustomDO customDO = userInfoBL.AddUser(userInfoDO);
+ 
+
+                // Add user health info
+                UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+                UserHealthInfoDO userHealthInfoDO = new UserHealthInfoDO();
+                userHealthInfoDO.EmailId = userInfoDO.EmailId;
+                userHealthInfoDO.CurrentCalories = 0;
+                CustomDO customDO1 = userHealthInfo.AddUserHealthInfo(userHealthInfoDO);
+                
                 Session["UserInfo"] = userInfoDO;
                 AgeGrpWorkoutDO ageGrpWorkout = this.HelperRegularFitness(userInfoDO.UserAge);
                 Session["ageGrpWorkout"] = ageGrpWorkout;
@@ -93,14 +103,82 @@ namespace Health_And_Fitness_360.Controllers
             ViewBag.Workout = "https://www.youtube.com/embed/" + newPlanWorkout;
 
             //Energy Indicator
-            int currentCalories = 0;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            int currentCalories = (int)userHealthInfoDO.CurrentCalories;
             int requiredCalories = Convert.ToInt32(ageGrpWorkout.Calories);
-            double PercentageCalories = (currentCalories/ requiredCalories)*100;
+            double PercentageCalories = ((double)currentCalories/ requiredCalories)*100;
             double Calories = Math.Round(PercentageCalories);
-            //ProgressText.InnerText = Calories.ToString() + "%";
+            if (currentCalories <= requiredCalories)
+            {
+                ViewBag.Calories = Calories.ToString() + "%";
+                ViewBag.NeedCalories = "You need to consume " + (requiredCalories - currentCalories).ToString() + " calories more to achieve daily goal.";
+            }
+            else
+            {
+                ViewBag.Calories = "100%";
+                ViewBag.NeedCalories = "Congratulations you have completd your goal. Extra Calories :" + (currentCalories - requiredCalories).ToString() + " calories.";
+            }
+            FoodItemsBL foodItemsBL = new FoodItemsBL();
+            List<FoodItemsDO> FoodItemList = foodItemsBL.GetFoodItems();
+            List<string> items = new List<string>();
+            
+            List<SelectListItem> selectListItems1 = new List<SelectListItem>();
+            List<SelectListItem> selectListItems2 = new List<SelectListItem>();
+            int i = 1;
+            foreach (FoodItemsDO foodItems in FoodItemList)
+            {
+                selectListItems1.Add(new SelectListItem { Text = foodItems.FoodItems, Value = foodItems.FoodItems });
+                selectListItems2.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                i++;
+            }
+            while(i<=20)
+            {
+                selectListItems2.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+                i++;
+            }
+            selectListItems1.First().Selected = true;
+            selectListItems2.First().Selected = true;
+
+            ViewBag.FoodItems = selectListItems1;
+            ViewBag.Amount = selectListItems2;
+            Session["foodItemList"] = FoodItemList;
             return View();
         }
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnergyIndicator(FormCollection formCollection)
+        {
+            string amount = formCollection["Amount"];
+            string item = formCollection["FoodItems"];
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            List<FoodItemsDO> FoodItemList = Session["foodItemList"] as List<FoodItemsDO>;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            FoodItemsDO fooditem = FoodItemList.FirstOrDefault(x => x.FoodItems.Equals(item));
+            userHealthInfoDO.CurrentCalories += fooditem.Calories * Convert.ToInt32(amount);
+            CustomDO customDO = userHealthInfo.UpdateUserHealthInfo(userHealthInfoDO);
+            return RedirectToAction("DashBoard");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MenstrualAndFertilityTracker(FormCollection formCollection)
+        {
+            string amount = formCollection["Amount"];
+            string item = formCollection["FoodItems"];
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            List<FoodItemsDO> FoodItemList = Session["foodItemList"] as List<FoodItemsDO>;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            FoodItemsDO fooditem = FoodItemList.FirstOrDefault(x => x.FoodItems.Equals(item));
+            userHealthInfoDO.CurrentCalories += fooditem.Calories * Convert.ToInt32(amount);
+            CustomDO customDO = userHealthInfo.UpdateUserHealthInfo(userHealthInfoDO);
+            return RedirectToAction("DashBoard");
+        }
+
+
         //Logout
         public ActionResult Logout()
         {

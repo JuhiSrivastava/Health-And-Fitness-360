@@ -34,11 +34,73 @@
 <table style="width:100%">
     <tr>
         <td style="width:49%">
-            <div class="jumbotron">Energy Indicator</div>
+            <div class="jumbotron">
+                Energy Indicator
+                <h5>Calories: @ViewBag.Calories</h5>
+                <h5>@ViewBag.NeedCalories</h5>
+                @using (Html.BeginForm("EnergyIndicator", "Home", FormMethod.Post))
+                {
+                    //@Html.ValidationSummary()
+                    @Html.AntiForgeryToken()
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                @Html.Label("FoodItems",labelText: "Food Items", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("FoodItems", ViewBag.FoodItems as SelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Amount", htmlAttributes: new { @class = "control-label" })
+                                @Html.DropDownList("Amount", ViewBag.Amount as SelectList, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Add" />
+                                 </div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
         </td>
         <td style="width:2%"> </td>
         <td style="width:49%">
-            <div class="jumbotron">Period and fertility tracker</div>
+            <div class="jumbotron">
+                Menstrual cycle and fertility tracker
+                <table>
+                    <tr>
+                        <td><h5>Menstrual Start Date: @ViewBag.Calories</h5></td>
+                        <td><h5>Monthly Cycle Durarion: @ViewBag.Calories</h5></td>
+                        <td><h5>Fertility Days: @ViewBag.Calories</h5></td>
+                    </tr>
+                </table>
+                <h5>Today is @ViewBag.Calories day of your menstrual cycle and @ViewBag.Calories days are left for upcoming Menstrual Cycle</h5>
+                @using (Html.BeginForm("MenstrualAndFertilityTracker", "Home", FormMethod.Post))
+                {
+                    //@Html.ValidationSummary()
+                    @Html.AntiForgeryToken()
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                @Html.Label("MenstrualStartDate", labelText: "Menstrual Start Date", htmlAttributes: new { @class = "control-label" })
+                                @Html.TextBox("MenstrualStartDate", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("MonthlyCycle", labelText: "Monthly Cycle", htmlAttributes: new { @class = "control-label" })
+                                @Html.TextBox("MonthlyCycle", 28, htmlAttributes: new { @class = "form-control", @type = "number" })
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+
+            </div>
         </td>
     </tr>
 </table>
@@ -58,7 +120,8 @@
                     <li>Exercise can be fun … and social!</li>
                 </ol>
             </td>
-            <td id="Plan1"><h4>We have customized this video tutorial based upon your heath and food intake</h4>
+            <td id="Plan1">
+                <h4>We have customized this video tutorial based upon your heath and food intake</h4>
 
                 <iframe type="text/html" width="100%" height="200px" src=@ViewBag.Workout frameborder="0"></iframe>
             </td>

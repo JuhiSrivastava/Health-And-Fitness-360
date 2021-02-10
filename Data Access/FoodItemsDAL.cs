@@ -15,21 +15,18 @@ namespace Data_Access
             healthAndFitnessDBEntities = new HealthAndFitnessDBEntities();
         }
 
-        public List<FoodItemsDO> GetFoodItems(List<string> foodItemsList)
+        public List<FoodItemsDO> GetFoodItems()
         {
             List<FoodItemsDO> foodItemsDOs = new List<FoodItemsDO>();
-            foreach (string s in foodItemsList)
+            foreach (FoodItem foodItem in healthAndFitnessDBEntities.FoodItems)
             {
-                FoodItem foodItem = healthAndFitnessDBEntities.FoodItems.FirstOrDefault(x => x.FoodItems.Equals(s));
                 FoodItemsDO foodItemsDO = new FoodItemsDO();
-                if (foodItem != null)
-                {
-                    foodItemsDO.FoodItems = foodItem.FoodItems;
-                    foodItemsDO.Calories = foodItem.Calories;
-                    foodItemsDO.Nutrients = foodItem.Nutrients;
-                    foodItemsDOs.Add(foodItemsDO);
-                }
+                foodItemsDO.FoodItems = foodItem.FoodItems;
+                foodItemsDO.Calories = foodItem.Calories;
+                foodItemsDO.Nutrients = foodItem.Nutrients;
+                foodItemsDOs.Add(foodItemsDO);
             }
+            
             return foodItemsDOs;
         }
     }
