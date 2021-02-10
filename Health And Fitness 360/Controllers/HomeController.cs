@@ -84,6 +84,7 @@ namespace Health_And_Fitness_360.Controllers
 
         public ActionResult DashBoard()
         {
+            
             //Monitor Health
             this.MonitorHealthHelper();
 
@@ -183,6 +184,7 @@ namespace Health_And_Fitness_360.Controllers
         {
             UserInfoBL userInfoBL = new UserInfoBL();
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            ViewBag.Name = userInfo.UserName;
             double height = Convert.ToDouble(userInfo.UserHeight);
             double weight = Convert.ToDouble(userInfo.UserWeight);
             int age = Convert.ToInt32(userInfo.UserAge);
