@@ -91,6 +91,13 @@ namespace Health_And_Fitness_360.Controllers
             int currentPlan = Convert.ToInt32(ageGrpWorkout.Workout_Plan.Last().ToString());
             string newPlanWorkout = ageGrpWorkoutBL.getModifiedPlan(0, Convert.ToInt32(ageGrpWorkout.Calories), currentPlan);
             ViewBag.Workout = "https://www.youtube.com/embed/" + newPlanWorkout;
+
+            //Energy Indicator
+            int currentCalories = 0;
+            int requiredCalories = Convert.ToInt32(ageGrpWorkout.Calories);
+            double PercentageCalories = (currentCalories/ requiredCalories)*100;
+            double Calories = Math.Round(PercentageCalories);
+            //ProgressText.InnerText = Calories.ToString() + "%";
             return View();
         }
         

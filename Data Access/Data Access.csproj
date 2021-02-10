@@ -55,6 +55,9 @@
       <DependentUpon>UserDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AgeGrpWorkoutDAL.cs" />
+    <Compile Include="FoodItem.cs">
+      <DependentUpon>UserDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymptomsOrDisease.cs">
       <DependentUpon>UserDBModel.tt</DependentUpon>
@@ -73,6 +76,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserDBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="UserHealthInfo.cs">
+      <DependentUpon>UserDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserInfo.cs">
       <DependentUpon>UserDBModel.tt</DependentUpon>

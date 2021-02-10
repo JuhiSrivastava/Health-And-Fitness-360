@@ -25,6 +25,7 @@ namespace Data_Access
                 EmailId  = userInfo.EmailId,
                 UserName = userInfo.UserName,
                 UserAge = userInfo.UserAge,
+                Gender = userInfo.Gender,
                 UserHeight = userInfo.UserHeight,
                 UserWeight = userInfo.UserWeight,
                 UserMobile = userInfo.UserMobile,
@@ -53,6 +54,7 @@ namespace Data_Access
                 userInfo.EmailId = user.EmailId;
                 userInfo.UserName = user.UserName;
                 userInfo.UserAge = user.UserAge;
+                userInfo.Gender = user.Gender;
                 userInfo.UserHeight = user.UserHeight;
                 userInfo.UserWeight = user.UserWeight;
                 userInfo.UserMobile = user.UserMobile;

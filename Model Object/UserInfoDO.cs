@@ -23,6 +23,9 @@ namespace Model_Object
         [Required(ErrorMessage = "Age is required.")]
         public int UserAge { get; set; }
 
+        [Display(Name = "Gender")]
+        public string Gender { get; set; }
+
         [Display(Name = "Height")]
         [Required(ErrorMessage = "Height is required.")]
         public string UserHeight { get; set; }

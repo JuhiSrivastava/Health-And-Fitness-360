@@ -14,6 +14,14 @@
           <Property Name="Workout Plan" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Calories" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="FoodItems">
+          <Key>
+            <PropertyRef Name="FoodItems" />
+          </Key>
+          <Property Name="FoodItems" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Calories" Type="int" Nullable="false" />
+          <Property Name="Nutrients" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="SymptomsOrDisease">
           <Key>
             <PropertyRef Name="SymptomsOrDiseaseName" />
@@ -22,6 +30,30 @@
           <Property Name="Medication" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Tests" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Cure" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HealthAndFitnessDB.dbo.UserHealthInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserHealthInfo">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Calories Day 1" Type="int" />
+          <Property Name="Calories Day 2" Type="int" />
+          <Property Name="Calories Day 3" Type="int" />
+          <Property Name="Calories Day 4" Type="int" />
+          <Property Name="Calories Day 5" Type="int" />
+          <Property Name="Calories Day 6" Type="int" />
+          <Property Name="Calories Day 7" Type="int" />
+          <Property Name="CurrentCalories" Type="int" />
+          <Property Name="PeriodDate" Type="datetime" />
+          <Property Name="FertilityDate" Type="datetime" />
+          <Property Name="Medication1" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDateM1" Type="datetime" />
+          <Property Name="DurationM1" Type="int" />
+          <Property Name="Medication2" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDateM2" Type="datetime" />
+          <Property Name="DurationM2" Type="int" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -34,6 +66,7 @@
           <Property Name="UserMobile" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="EmailId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserSymptoms">
           <Key>
@@ -67,11 +100,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserHealthInfo_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserHealthInfo" Type="Self.UserHealthInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="UserHealthInfo">
+              <PropertyRef Name="EmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HealthAndFitnessDBModelStoreContainer">
           <EntitySet Name="AgeGrpWorkout" EntityType="Self.AgeGrpWorkout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodItems" EntityType="Self.FoodItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SymptomsOrDisease" EntityType="Self.SymptomsOrDisease" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSymptoms" EntityType="Self.UserSymptoms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserHealthInfo" EntityType="Self.UserHealthInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserHealthInfo].[EmailId] AS [EmailId], 
+    [UserHealthInfo].[Calories Day 1] AS [Calories Day 1], 
+    [UserHealthInfo].[Calories Day 2] AS [Calories Day 2], 
+    [UserHealthInfo].[Calories Day 3] AS [Calories Day 3], 
+    [UserHealthInfo].[Calories Day 4] AS [Calories Day 4], 
+    [UserHealthInfo].[Calories Day 5] AS [Calories Day 5], 
+    [UserHealthInfo].[Calories Day 6] AS [Calories Day 6], 
+    [UserHealthInfo].[Calories Day 7] AS [Calories Day 7], 
+    [UserHealthInfo].[CurrentCalories] AS [CurrentCalories], 
+    [UserHealthInfo].[PeriodDate] AS [PeriodDate], 
+    [UserHealthInfo].[FertilityDate] AS [FertilityDate], 
+    [UserHealthInfo].[Medication1] AS [Medication1], 
+    [UserHealthInfo].[StartDateM1] AS [StartDateM1], 
+    [UserHealthInfo].[DurationM1] AS [DurationM1], 
+    [UserHealthInfo].[Medication2] AS [Medication2], 
+    [UserHealthInfo].[StartDateM2] AS [StartDateM2], 
+    [UserHealthInfo].[DurationM2] AS [DurationM2]
+    FROM [dbo].[UserHealthInfo] AS [UserHealthInfo]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Email_Address" Association="Self.FK_Email_Address">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserSymptoms" EntitySet="UserSymptoms" />
@@ -79,6 +146,10 @@
           <AssociationSet Name="FK_SymptomsOrDisease" Association="Self.FK_SymptomsOrDisease">
             <End Role="SymptomsOrDisease" EntitySet="SymptomsOrDisease" />
             <End Role="UserSymptoms" EntitySet="UserSymptoms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHealthInfo_UserInfo" Association="Self.FK_UserHealthInfo_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserHealthInfo" EntitySet="UserHealthInfo" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -97,6 +168,8 @@
           <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserSymptoms" Relationship="HealthAndFitnessDBModel.FK_Email_Address" FromRole="UserInfo" ToRole="UserSymptom" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserHealthInfo" Relationship="HealthAndFitnessDBModel.FK_UserHealthInfo_UserInfo" FromRole="UserInfo" ToRole="UserHealthInfo" />
         </EntityType>
         <EntityContainer Name="HealthAndFitnessDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
@@ -110,6 +183,12 @@
           <AssociationSet Name="FK_Email_Address" Association="HealthAndFitnessDBModel.FK_Email_Address">
             <End Role="UserInfo" EntitySet="UserInfoes" />
             <End Role="UserSymptom" EntitySet="UserSymptoms" />
+          </AssociationSet>
+          <EntitySet Name="FoodItems" EntityType="HealthAndFitnessDBModel.FoodItem" />
+          <EntitySet Name="UserHealthInfoes" EntityType="HealthAndFitnessDBModel.UserHealthInfo" />
+          <AssociationSet Name="FK_UserHealthInfo_UserInfo" Association="HealthAndFitnessDBModel.FK_UserHealthInfo_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="UserHealthInfo" EntitySet="UserHealthInfoes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AgeGrpWorkout">
@@ -165,6 +244,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FoodItem">
+          <Key>
+            <PropertyRef Name="FoodItems" />
+          </Key>
+          <Property Name="FoodItems" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Calories" Type="Int32" Nullable="false" />
+          <Property Name="Nutrients" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserHealthInfo">
+          <Key>
+            <PropertyRef Name="EmailId" />
+          </Key>
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Calories_Day_1" Type="Int32" />
+          <Property Name="Calories_Day_2" Type="Int32" />
+          <Property Name="Calories_Day_3" Type="Int32" />
+          <Property Name="Calories_Day_4" Type="Int32" />
+          <Property Name="Calories_Day_5" Type="Int32" />
+          <Property Name="Calories_Day_6" Type="Int32" />
+          <Property Name="Calories_Day_7" Type="Int32" />
+          <Property Name="CurrentCalories" Type="Int32" />
+          <Property Name="PeriodDate" Type="DateTime" Precision="3" />
+          <Property Name="FertilityDate" Type="DateTime" Precision="3" />
+          <Property Name="Medication1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDateM1" Type="DateTime" Precision="3" />
+          <Property Name="DurationM1" Type="Int32" />
+          <Property Name="Medication2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDateM2" Type="DateTime" Precision="3" />
+          <Property Name="DurationM2" Type="Int32" />
+          <NavigationProperty Name="UserInfo" Relationship="HealthAndFitnessDBModel.FK_UserHealthInfo_UserInfo" FromRole="UserHealthInfo" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_UserHealthInfo_UserInfo">
+          <End Type="HealthAndFitnessDBModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="HealthAndFitnessDBModel.UserHealthInfo" Role="UserHealthInfo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="EmailId" />
+            </Principal>
+            <Dependent Role="UserHealthInfo">
+              <PropertyRef Name="EmailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -174,6 +296,7 @@
           <EntitySetMapping Name="UserInfoes">
             <EntityTypeMapping TypeName="HealthAndFitnessDBModel.UserInfo">
               <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -210,6 +333,38 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Symptoms" ColumnName="Symptoms" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodItems">
+            <EntityTypeMapping TypeName="HealthAndFitnessDBModel.FoodItem">
+              <MappingFragment StoreEntitySet="FoodItems">
+                <ScalarProperty Name="Nutrients" ColumnName="Nutrients" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+                <ScalarProperty Name="FoodItems" ColumnName="FoodItems" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserHealthInfoes">
+            <EntityTypeMapping TypeName="HealthAndFitnessDBModel.UserHealthInfo">
+              <MappingFragment StoreEntitySet="UserHealthInfo">
+                <ScalarProperty Name="DurationM2" ColumnName="DurationM2" />
+                <ScalarProperty Name="StartDateM2" ColumnName="StartDateM2" />
+                <ScalarProperty Name="Medication2" ColumnName="Medication2" />
+                <ScalarProperty Name="DurationM1" ColumnName="DurationM1" />
+                <ScalarProperty Name="StartDateM1" ColumnName="StartDateM1" />
+                <ScalarProperty Name="Medication1" ColumnName="Medication1" />
+                <ScalarProperty Name="FertilityDate" ColumnName="FertilityDate" />
+                <ScalarProperty Name="PeriodDate" ColumnName="PeriodDate" />
+                <ScalarProperty Name="CurrentCalories" ColumnName="CurrentCalories" />
+                <ScalarProperty Name="Calories_Day_7" ColumnName="Calories Day 7" />
+                <ScalarProperty Name="Calories_Day_6" ColumnName="Calories Day 6" />
+                <ScalarProperty Name="Calories_Day_5" ColumnName="Calories Day 5" />
+                <ScalarProperty Name="Calories_Day_4" ColumnName="Calories Day 4" />
+                <ScalarProperty Name="Calories_Day_3" ColumnName="Calories Day 3" />
+                <ScalarProperty Name="Calories_Day_2" ColumnName="Calories Day 2" />
+                <ScalarProperty Name="Calories_Day_1" ColumnName="Calories Day 1" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

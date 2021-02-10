@@ -38,6 +38,15 @@
                                     </div>
 
                                     <div class="form-group">
+                                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
+                                        <br />
+                                        Female
+                                        @Html.RadioButtonFor(model => model.Gender, "Female")
+                                        Transgender
+                                        @Html.RadioButtonFor(model => model.Gender, "Transgender")
+                                    </div>
+
+                                    <div class="form-group">
                                         @Html.LabelFor(model => model.UserHeight, htmlAttributes: new { @class = "control-label" })
                                         @Html.TextBoxFor(model => model.UserHeight, htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
                                         @Html.ValidationMessageFor(model => model.UserHeight, validationMessage: null, htmlAttributes: new { @class = "text-danger" })
