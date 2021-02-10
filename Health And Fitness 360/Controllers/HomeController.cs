@@ -23,6 +23,7 @@ namespace Health_And_Fitness_360.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(string emailId, string password)
         {
+            Session["MedicalDetails"] = "";
             if (ModelState.IsValid && emailId.Length > 0 && password.Length > 0)
             {
                 UserInfoBL userInfoBL = new UserInfoBL();
@@ -100,6 +101,8 @@ namespace Health_And_Fitness_360.Controllers
             //Pregnancy Tracker
             this.PregnancyTrackerHelper();
 
+            ViewBag.Details = Session["MedicalDetails"];
+
             return View();
         }
 
@@ -147,6 +150,20 @@ namespace Health_And_Fitness_360.Controllers
             return RedirectToAction("DashBoard");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SearchSymptom(FormCollection formCollection)
+        {
+            string symptom = formCollection["Symptoms"];
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            SymptomsOrDiseaseBL symptomsOrDisease = new SymptomsOrDiseaseBL();
+            SymptomsOrDiseaseDO symptomsOrDiseaseDO = symptomsOrDisease.GetSymptomsOrDiseaseDetails(symptom);
+            if (symptomsOrDiseaseDO.SymptomsOrDiseaseName != null)
+                Session["MedicalDetails"] = "Symptom/Disease Name: " + symptomsOrDiseaseDO.SymptomsOrDiseaseName + " Medication: " + symptomsOrDiseaseDO.Medication + "\n Test: " + symptomsOrDiseaseDO.Tests + "\n Cure: " + symptomsOrDiseaseDO.Cure;
+            else
+                Session["MedicalDetails"] = "Unable to Find. Please try with some other Symptom";
+            return RedirectToAction("DashBoard");
+        }
 
         //Logout
         public ActionResult Logout()

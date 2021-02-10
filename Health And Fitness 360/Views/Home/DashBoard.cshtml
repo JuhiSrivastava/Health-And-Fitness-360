@@ -184,20 +184,34 @@
 
     </table>
 </div>
+<div class="jumbotron" id="symptoms">
+    <h3 style="text-align:center">Symptoms/Diseases/Medication Tracker</h3>
+    <h4>Search for Symptoms/Diseases </h4>
 
-<table style="width:100%" id="symptoms">
-    <tr>
-        <td style="width:49%">
-            <div class="jumbotron">Pregnancy Tracker</div>
-        </td>
-        <td style="width:2%"> </td>
-        <td style="width:49%">
-            <div class="jumbotron">Medicine Tracker</div>
-        </td>
-    </tr>
-</table>
+    @using (Html.BeginForm("SearchSymptom", "Home", FormMethod.Post))
+    {
+        //@Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    @Html.TextBox("Symptoms", "", new { @class = "form -control" })
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Search" />
+                </div>
+            </div>
+        </div>
+
+    }
+    <h4>@ViewBag.Details</h4>
+
+
+</div>
+
 <div class="jumbotron">
-    <h3>Comming Soon</h3>
+    <h3>Comming Soon...</h3>
     <ol>
         <li>dietplan</li>
         <li>search symptom medication</li>
@@ -230,12 +244,12 @@
             $('#nav .navbar-nav li>a').on('click', function (event) {
                 event.preventDefault();
                 var sectionID = $(this).attr("href");
-                
+
                     scrollToID(sectionID, 1000);
                     var current = document.getElementsByClassName("active");
                     current[0].className = current[0].className.replace(" active", "");
                     $(this).className += " active";
-                
+
             });
 
             function scrollToID(id, speed) {
