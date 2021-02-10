@@ -31,8 +31,6 @@
           <Property Name="Tests" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Cure" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'HealthAndFitnessDB.dbo.UserHealthInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UserHealthInfo">
           <Key>
             <PropertyRef Name="EmailId" />
@@ -74,7 +72,7 @@ warning 6002: The table/view 'HealthAndFitnessDB.dbo.UserHealthInfo' does not ha
           </Key>
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Symptoms" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <Association Name="FK_Email_Address">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
@@ -116,29 +114,9 @@ warning 6002: The table/view 'HealthAndFitnessDB.dbo.UserHealthInfo' does not ha
           <EntitySet Name="AgeGrpWorkout" EntityType="Self.AgeGrpWorkout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodItems" EntityType="Self.FoodItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SymptomsOrDisease" EntityType="Self.SymptomsOrDisease" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserHealthInfo" EntityType="Self.UserHealthInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSymptoms" EntityType="Self.UserSymptoms" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserHealthInfo" EntityType="Self.UserHealthInfo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [UserHealthInfo].[EmailId] AS [EmailId], 
-    [UserHealthInfo].[Calories Day 1] AS [Calories Day 1], 
-    [UserHealthInfo].[Calories Day 2] AS [Calories Day 2], 
-    [UserHealthInfo].[Calories Day 3] AS [Calories Day 3], 
-    [UserHealthInfo].[Calories Day 4] AS [Calories Day 4], 
-    [UserHealthInfo].[Calories Day 5] AS [Calories Day 5], 
-    [UserHealthInfo].[Calories Day 6] AS [Calories Day 6], 
-    [UserHealthInfo].[Calories Day 7] AS [Calories Day 7], 
-    [UserHealthInfo].[CurrentCalories] AS [CurrentCalories], 
-    [UserHealthInfo].[PeriodDate] AS [PeriodDate], 
-    [UserHealthInfo].[FertilityDate] AS [FertilityDate], 
-    [UserHealthInfo].[Medication1] AS [Medication1], 
-    [UserHealthInfo].[StartDateM1] AS [StartDateM1], 
-    [UserHealthInfo].[DurationM1] AS [DurationM1], 
-    [UserHealthInfo].[Medication2] AS [Medication2], 
-    [UserHealthInfo].[StartDateM2] AS [StartDateM2], 
-    [UserHealthInfo].[DurationM2] AS [DurationM2]
-    FROM [dbo].[UserHealthInfo] AS [UserHealthInfo]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Email_Address" Association="Self.FK_Email_Address">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserSymptoms" EntitySet="UserSymptoms" />

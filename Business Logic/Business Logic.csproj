@@ -42,8 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgeGrpWorkoutBL.cs" />
+    <Compile Include="FoodItemsBL.cs" />
+    <Compile Include="SymptomsOrDiseaseBL.cs" />
+    <Compile Include="UserHealthInfoBL.cs" />
     <Compile Include="UserInfoBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserSymptomsBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data Access\Data Access.csproj">
