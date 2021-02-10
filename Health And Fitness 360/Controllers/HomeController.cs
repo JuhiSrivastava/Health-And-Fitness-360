@@ -96,6 +96,9 @@ namespace Health_And_Fitness_360.Controllers
             //Menstrual Cycle And Fertility Tracker
             this.MenstrualCycleAndFertilityTracker();
 
+            //Pregnancy Tracker
+            this.PregnancyTrackerHelper();
+
             return View();
         }
 
@@ -126,6 +129,19 @@ namespace Health_And_Fitness_360.Controllers
             UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
             userHealthInfoDO.PeriodDate = StartDate;
             userHealthInfoDO.MenstrualCycleDuration = monthlyCycle;
+            CustomDO customDO = userHealthInfo.UpdateUserHealthInfo(userHealthInfoDO);
+            return RedirectToAction("DashBoard");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PregnancyTracker(FormCollection formCollection)
+        {
+            DateTime StartDate = Convert.ToDateTime(formCollection["PregnancyDate"]);
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            userHealthInfoDO.PregnancyDate = StartDate;
             CustomDO customDO = userHealthInfo.UpdateUserHealthInfo(userHealthInfoDO);
             return RedirectToAction("DashBoard");
         }
@@ -248,6 +264,20 @@ namespace Health_And_Fitness_360.Controllers
             ViewBag.FertilityDays = date1.ToShortDateString() + ", " + date2.ToShortDateString() + " and " + date3.ToShortDateString();
             ViewBag.TodayDay = (DateTime.Today.Date - MenstrualStartDate).TotalDays;
             ViewBag.LeftDay = MensturalCycleDuration - (DateTime.Today.Date - MenstrualStartDate).TotalDays;
+            
+        }
+
+        public void PregnancyTrackerHelper()
+        {
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            DateTime pregnancyDate = (userHealthInfoDO.PregnancyDate == null) ? DateTime.Today : ((DateTime)userHealthInfoDO.PregnancyDate);
+            string[] pregnancyPlan = userHealthInfo.GetPregnancyPlan(pregnancyDate).Split();
+            int week = Convert.ToInt32(pregnancyPlan[0]);
+            ViewBag.PregnancyWorkout = "https://www.youtube.com/embed/" + pregnancyPlan[1];
+            ViewBag.PregnancyWeek = week;
+            ViewBag.PregnancyWeekLeft = 40 - week;
             
         }
     }

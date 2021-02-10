@@ -129,6 +129,41 @@
 
     </table>
 </div>
+<div class="jumbotron">
+    <h3 style="text-align:center">Pregnancy Tracker </h3>
+    <br />
+    <table style="width:100%;table-layout: fixed">
+        <tr style="font-size:15px">
+            <td id="Plan1">
+                <h4>We have cutomized the workout videos according to your current pregnancy stage.</h4>
+                <iframe type="text/html" width="90%" height="200px" src=@ViewBag.PregnancyWorkout frameborder="0"></iframe>
+            </td>
+            <td>
+                <h4>@ViewBag.PregnancyWeek week of your Pregnancy is going on. @ViewBag.PregnancyWeekLeft weeks more to go.</h4>
+               @using (Html.BeginForm("PregnancyTracker", "Home", FormMethod.Post))
+                {
+                    //@Html.ValidationSummary()
+                    @Html.AntiForgeryToken()
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                @Html.Label("PregnancyDate", labelText: "Pregnancy Start Date", htmlAttributes: new { @class = "control-label" })
+                                @Html.TextBox("PregnancyDate", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </td>
+        </tr>
+
+    </table>
+</div>
+
 <table style="width:100%">
     <tr>
         <td style="width:49%">
@@ -142,152 +177,24 @@
 </table>
 <div class="jumbotron">
     <h3>Comming Soon</h3>
-    <table style="width:100%">
-        <tr>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content:Food Intake</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td></td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Energy Indicator/BMI</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <br></br>
-    <table style="width:100%">
-        <tr>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content:customized exercise/dietplan</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td></td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content:search symptom medication</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td></td>
-            <td>
-                <div class="card">
-                    <div id="piechart1"></div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <br></br>
-    <table style="width:100%">
-        <tr>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Period and fertility tracker</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td></td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Pregnancy tracker</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td></td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Daily Habits</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <br></br>
-    <table style="width:100%">
-        <tr>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Doctor consult</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td></td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Karate/ self defence exercise</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td></td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content:weekly progress</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <br></br>
-    <table style="width:100%">
-        <tr>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Fitness band integration</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: SOS</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Distance Tracking and warning</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Medicine tracking</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-            <td>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content: Specific allergy related</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">comments,transgender,deployment, local db, quotes, checkbox end of registration: Specific allergy related</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <ol>
+        <li>dietplan</li>
+        <li>search symptom medication</li>
+        <li>SOS and Doctor consult</li>
+        <li>Karate/ self defence exercise</li>
+        <li>weekly progress</li>
+        <li>Fitness band integration</li>
+        <li>Distance Tracking and warning</li>
+        <li>Fitness band integration</li>
+        <li>Medicine tracking</li>
+        <li>Specific allergy related</li>
+        <li>comments</li>
+        <li>deployment</li>
+        <li>local db</li>
+        <li>quotes</li>
+        <li>checkbox end of registration</li>
+    </ol>
+   
 
 </div>
 

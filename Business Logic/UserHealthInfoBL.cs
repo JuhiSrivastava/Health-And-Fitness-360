@@ -57,5 +57,25 @@ namespace Business_Logic
             }
             return userHealthInfo;
         }
+        public string GetPregnancyPlan(DateTime pregnancyDate)
+        {
+            int totalDays = (int)(DateTime.Today.Date - pregnancyDate).TotalDays;
+            int week = 0;
+            double totalWeek = (double)totalDays / 7;
+            if (totalDays % 7 == 0)
+                week = (int)totalWeek;
+            else
+                week = (int)totalWeek + 1;
+
+            string pregnancyWorkout = week.ToString() + " ";
+            if (week >=0 && week <=12)
+                pregnancyWorkout += "1vjezAe_oCs";
+            else if (week >= 13 && week <= 26)
+                pregnancyWorkout += "6H5BP4QF_v8";
+            else
+                pregnancyWorkout += "BzANj0vepxI";
+
+            return pregnancyWorkout;
         }
     }
+}
