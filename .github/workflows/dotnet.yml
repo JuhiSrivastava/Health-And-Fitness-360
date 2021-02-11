@@ -5,7 +5,8 @@ on: [push]
 env:
   AZURE_WEBAPP_NAME: 'Health-And-Fitness-360'    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NUGET_VERSION: '4.6.1'           # set this to the dot net version to use
+  NUGET_VERSION: '4.6.1'           # set this to the dot net version to 
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   build-and-deploy:
