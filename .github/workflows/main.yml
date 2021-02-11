@@ -3,27 +3,26 @@ name: Deploy ASP.NET MVC App deploy to Azure Web App
 on: [push]
 
 env:
-  AZURE_WEBAPP_NAME: 'Health-And-Fitness-360'    # set this to your application's name
+  AZURE_WEBAPP_NAME: HNF-360    # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NUGET_VERSION: '4.6.1'           # set this to the dot net version to 
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  NUGET_VERSION: '4.6.1'           # set this to the dot net version to use
 
 jobs:
   build-and-deploy:
     runs-on: windows-latest
     steps:
 
-    - uses: actions/checkout@main  
+    - uses: actions/checkout@master  
     
     - name: Install Nuget
-      uses: nuget/setup-nuget@v1
+      uses: nuget/setup-nuget@v1.0.5
       with:
         nuget-version: ${{ env.NUGET_VERSION}}
     - name: NuGet to restore dependencies as well as project-specific tools that are specified in the project file
       run: nuget restore
   
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.0
+      uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Run MSBuild
       run: msbuild ".\Health And Fitness 360.sln"
@@ -32,5 +31,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
-        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/Health_And_Fitness_360/'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE   }} # Define secret variable in repository settings as per action documentation
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/Health And Fitness 360/'
