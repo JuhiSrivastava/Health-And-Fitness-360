@@ -18,6 +18,10 @@ namespace Business_Logic
         {
             return new UserInfoDAL().GetUser(emailId, password);
         }
+        public CustomDO UpdateUserInfo(UserInfoDO userInfo)
+        {
+            return new UserInfoDAL().UpdateUserInfo(userInfo);
+        }
         public string BMICalculation(double height, double weight, int age)
         {
             double bmi = (weight / (height * height));

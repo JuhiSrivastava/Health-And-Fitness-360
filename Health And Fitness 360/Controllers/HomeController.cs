@@ -108,6 +108,24 @@ namespace Health_And_Fitness_360.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult HealthMonitor(FormCollection formCollection)
+        {
+            string height = formCollection["Height"];
+            string weight = formCollection["Weight"];
+            if (height.Length > 0 && weight.Length > 0)
+            {
+
+                UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+                userInfo.UserHeight = height;
+                userInfo.UserWeight = weight;
+                UserInfoBL userInfoBL = new UserInfoBL();
+                CustomDO customDO = userInfoBL.UpdateUserInfo(userInfo);
+            }
+            return RedirectToAction("DashBoard");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EnergyIndicator(FormCollection formCollection)
         {
             string amount = formCollection["Amount"];

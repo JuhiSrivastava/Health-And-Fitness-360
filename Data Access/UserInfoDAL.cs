@@ -58,9 +58,31 @@ namespace Data_Access
                 userInfo.UserHeight = user.UserHeight;
                 userInfo.UserWeight = user.UserWeight;
                 userInfo.UserMobile = user.UserMobile;
-                userInfo.Password = userInfo.Password;
+                userInfo.Password = user.Password;
             }
             return userInfo;
+        }
+
+        public CustomDO UpdateUserInfo(UserInfoDO userInfo)
+        {
+            CustomDO custom = new CustomDO();
+            UserInfo user = healthAndFitnessDBEntities.UserInfoes.FirstOrDefault(x => x.EmailId.Equals(userInfo.EmailId));
+            //user.UserAge = userInfo.UserAge;
+            //user.Gender = userInfo.Gender;
+            user.UserHeight = userInfo.UserHeight;
+            user.UserWeight = userInfo.UserWeight;
+            
+            int returnVal = healthAndFitnessDBEntities.SaveChanges();
+            custom.CustomId = returnVal;
+            if (returnVal > 0)
+            {
+                custom.CustomMessage = "Data Successfully Modified";
+            }
+            else
+            {
+                custom.CustomMessage = "Unable to Add User";
+            }
+            return custom;
         }
     }
 }

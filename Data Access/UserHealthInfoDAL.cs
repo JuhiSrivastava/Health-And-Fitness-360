@@ -110,7 +110,7 @@ namespace Data_Access
             custom.CustomId = returnVal;
             if (returnVal > 0)
             {
-                custom.CustomMessage = "Data Successfully Added";
+                custom.CustomMessage = "Data Successfully Modified";
             }
             else
             {

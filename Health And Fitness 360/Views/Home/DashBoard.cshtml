@@ -23,13 +23,13 @@
 </nav>
 
 
-<h2 style="text-align:center" id="top">Welcome to your All in One Portal</h2>
+<h1 style="text-align:center; position:relative" id="top">Welcome to your All in One Portal</h1>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <div class="jumbotron">
-    <h3 style="text-align:center">Heath Monitor through BMI</h3>
-    <h5>BMI = @ViewBag.BMI</h5>
+    <h2 style="text-align:center">Heath Monitor through BMI</h2>
+    <h5>Your BMI = @ViewBag.BMI</h5>
     <table style="width:100%;table-layout: fixed">
-        <tr style="font-size:15px">
+        <tr style="font-size:15px; text-align:center">
             <td style="visibility:hidden" id="1">You are here: <i class="arrow down"></i></td>
             <td style="visibility:hidden" id="2">You are here: <i class="arrow down"></i></td>
             <td style="visibility:hidden" id="3">You are here: <i class="arrow down"></i></td>
@@ -39,7 +39,7 @@
             <td style="visibility:hidden" id="7">You are here: <i class="arrow down"></i></td>
             <td style="visibility:hidden" id="8">You are here: <i class="arrow down"></i></td>
         </tr>
-        <tr style="font-size:15px">
+        <tr style="font-size:15px; text-align:center">
             <td style="background-color:red">Severe Thinness</td>
             <td style="background-color:darkorange">Moderate Thinness</td>
             <td style="background-color:orange">Mild Thinness</td>
@@ -50,36 +50,72 @@
             <td style="background-color:red">Obese Class III</td>
         </tr>
     </table>
+    <br />
+    @using (Html.BeginForm("HealthMonitor", "Home", FormMethod.Post))
+    {
+        //@Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+        <table  style="width:100%;table-layout: fixed">
+            <tr>
+                <td style="width:3%"></td>
+                <td style="width:15%">
+                    @Html.Label("Height", labelText: "Enter Height", htmlAttributes: new { @class = "control-label" })
+                </td>
+                <td style="width:25%">
+                    @Html.TextBox("Height", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
+                </td>
+                <td style="width:3%"></td>
+                <td style="width:15%">
+                    @Html.Label("Weight", labelText: "Enter Weight", htmlAttributes: new { @class = "control-label" })
+                </td>
+                <td style="width:25%">
+                    @Html.TextBox("Weight", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Weight" })
+                </td>
+                <td style="width:3%"></td>
+                <td>
+                    <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
+                </td>
+            </tr>
+        </table>
+    }
+
 </div>
 
 <table style="width:100%" id="energy">
     <tr>
         <td style="width:45%">
             <div class="jumbotron">
-                Energy Indicator
+                <h2>Energy Indicator</h2>
                 <h5>Calories: @ViewBag.Calories</h5>
                 <h5>@ViewBag.NeedCalories</h5>
                 @using (Html.BeginForm("EnergyIndicator", "Home", FormMethod.Post))
                 {
                     //@Html.ValidationSummary()
                     @Html.AntiForgeryToken()
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @Html.Label("FoodItems", labelText: "Food Items", htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownList("FoodItems", ViewBag.FoodItems as SelectList, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("Amount", htmlAttributes: new { @class = "control-label" })
-                                @Html.DropDownList("Amount", ViewBag.Amount as SelectList, new { @class = "form-control" })
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Add" />
-                            </div>
-                        </div>
-                    </div>
-
+                <table style="width:100%;table-layout: fixed">
+                    <tr>
+                        <td style="width:40%">
+                            @Html.Label("FoodItems", labelText: "Food Items", htmlAttributes: new { @class = "control-label" })
+                        </td>
+                        <td style="width:60%">
+                            @Html.DropDownList("FoodItems", ViewBag.FoodItems as SelectList, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:40%">
+                            @Html.Label("Amount", htmlAttributes: new { @class = "control-label" })
+                        </td>
+                        <td style="width:60%">
+                            @Html.DropDownList("Amount", ViewBag.Amount as SelectList, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Add" />
+                        </td>
+                    </tr>
+                </table>
+                    
                 }
 
             </div>
@@ -87,7 +123,7 @@
         <td style="width:1%"> </td>
         <td style="width:54%">
             <div class="jumbotron">
-                Menstrual cycle and fertility tracker
+                <h2>Menstrual cycle and fertility tracker</h2>
                 <table>
                     <tr>
                         <td><h5>Menstrual Start Date: @ViewBag.MenstrualStartDate</h5></td>
@@ -100,33 +136,37 @@
                 {
                     //@Html.ValidationSummary()
                     @Html.AntiForgeryToken()
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
+                    <table style="width:100%;table-layout: fixed">
+                        <tr>
+                            <td style="width:50%">
                                 @Html.Label("MenstrualStartDate", labelText: "Menstrual Start Date", htmlAttributes: new { @class = "control-label" })
+                            </td>
+                            <td style="width:50%">
                                 @Html.TextBox("MenstrualStartDate", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
-                            </div>
-                            <div class="form-group">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%">
                                 @Html.Label("MonthlyCycle", labelText: "Monthly Cycle", htmlAttributes: new { @class = "control-label" })
+                            </td>
+                            <td style="width:50%">
                                 @Html.TextBox("MonthlyCycle", 28, htmlAttributes: new { @class = "form-control", @type = "number" })
-                            </div>
-                            <div class="form-group">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
-                            </div>
-                        </div>
-                    </div>
-
+                            </td>
+                        </tr>
+                    </table>
+                   
                 }
-
-
-
             </div>
         </td>
     </tr>
 </table>
 <div class="jumbotron" id="regular">
-    <h3 style="text-align:center">Regular Fitness </h3>
+    <h2 style="text-align:center">Regular Fitness </h2>
     <br />
     <table style="width:100%;table-layout: fixed">
         <tr style="font-size:15px">
@@ -151,7 +191,7 @@
     </table>
 </div>
 <div class="jumbotron" id="pregnancy">
-    <h3 style="text-align:center">Pregnancy Tracker </h3>
+    <h2 style="text-align:center">Pregnancy Tracker </h2>
     <br />
     <table style="width:100%;table-layout: fixed">
         <tr style="font-size:15px">
@@ -185,7 +225,7 @@
     </table>
 </div>
 <div class="jumbotron" id="symptoms">
-    <h3 style="text-align:center">Symptoms/Diseases/Medication Tracker</h3>
+    <h2 style="text-align:center">Symptoms/Diseases/Medication Tracker</h2>
     <h4>Search for Symptoms/Diseases </h4>
 
     @using (Html.BeginForm("SearchSymptom", "Home", FormMethod.Post))
@@ -193,7 +233,7 @@
         //@Html.ValidationSummary()
         @Html.AntiForgeryToken()
 
-        <div class="card">
+        <div class="card form-inline">
             <div class="card-body">
                 <div class="form-group">
                     @Html.TextBox("Symptoms", "", new { @class = "form -control" })
@@ -211,23 +251,18 @@
 </div>
 
 <div class="jumbotron">
-    <h3>Comming Soon...</h3>
+    <h2>Comming Soon...</h2>
     <ol>
         <li>dietplan</li>
-        <li>search symptom medication</li>
         <li>SOS and Doctor consult</li>
         <li>Karate/ self defence exercise</li>
         <li>weekly progress</li>
         <li>Fitness band integration</li>
         <li>Distance Tracking and warning</li>
-        <li>Fitness band integration</li>
-        <li>Medicine tracking</li>
         <li>Specific allergy related</li>
         <li>comments</li>
-        <li>deployment</li>
         <li>local db</li>
         <li>quotes</li>
-        <li>checkbox end of registration</li>
     </ol>
 
 
