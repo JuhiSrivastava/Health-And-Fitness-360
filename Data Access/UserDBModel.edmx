@@ -63,7 +63,7 @@
           <Property Name="UserAge" Type="int" Nullable="false" />
           <Property Name="UserHeight" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="UserWeight" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="UserMobile" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserMobile" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EmailId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gender" Type="nvarchar" MaxLength="50" />
@@ -144,7 +144,7 @@
           <Property Name="UserAge" Type="Int32" Nullable="false" />
           <Property Name="UserHeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="UserWeight" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="UserMobile" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserSymptoms" Relationship="HealthAndFitnessDBModel.FK_Email_Address" FromRole="UserInfo" ToRole="UserSymptom" />

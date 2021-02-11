@@ -57,7 +57,8 @@ namespace Health_And_Fitness_360.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(UserInfoDO userInfoDO)
         {
-            if(ModelState.IsValid)
+            Session["MedicalDetails"] = "";
+            if (ModelState.IsValid)
             {
                 // Add user info
                 UserInfoBL userInfoBL = new UserInfoBL();
@@ -85,12 +86,12 @@ namespace Health_And_Fitness_360.Controllers
 
         public ActionResult DashBoard()
         {
-            
+
             //Monitor Health
             this.MonitorHealthHelper();
 
             //Regular Fitness
-            this.RegularFitnessHelper(); 
+            this.RegularFitnessHelper();
 
             //Energy Indicator
             this.EnergyIndicatorHelper();
@@ -101,9 +102,31 @@ namespace Health_And_Fitness_360.Controllers
             //Pregnancy Tracker
             this.PregnancyTrackerHelper();
 
-            ViewBag.Details = Session["MedicalDetails"];
+            //Search specific symptoms or diseases
+            
+            if (!(Session["MedicalDetails"].ToString().Equals("")))
+            {
+                string[] medicalDetails = Session["MedicalDetails"].ToString().Split(',');
+                if (medicalDetails.Length > 1)
+                {
+                    ViewBag.SymptomName = medicalDetails[0];
+                    ViewBag.Medication = medicalDetails[1];
+                    ViewBag.Test = medicalDetails[2];
+                    ViewBag.Cure = medicalDetails[3];
+                }
+                else
+                {
+                    ViewBag.SymptomName = "Unable to Find. Please try with some other Symptom/Disease";
+                    ViewBag.Medication = "Unable to Find. Please try with some other Symptom/Disease";
+                    ViewBag.Test = "Unable to Find. Please try with some other Symptom/Disease";
+                    ViewBag.Cure = "Unable to Find. Please try with some other Symptom/Disease";
+                }
+            }
 
-            return View();
+            //Medicine Tracker
+            this.MedicineTrackingHelper();
+                return View();
+            
         }
 
         [HttpPost]
@@ -177,9 +200,34 @@ namespace Health_And_Fitness_360.Controllers
             SymptomsOrDiseaseBL symptomsOrDisease = new SymptomsOrDiseaseBL();
             SymptomsOrDiseaseDO symptomsOrDiseaseDO = symptomsOrDisease.GetSymptomsOrDiseaseDetails(symptom);
             if (symptomsOrDiseaseDO.SymptomsOrDiseaseName != null)
-                Session["MedicalDetails"] = "Symptom/Disease Name: " + symptomsOrDiseaseDO.SymptomsOrDiseaseName + " Medication: " + symptomsOrDiseaseDO.Medication + "\n Test: " + symptomsOrDiseaseDO.Tests + "\n Cure: " + symptomsOrDiseaseDO.Cure;
+                Session["MedicalDetails"] = symptomsOrDiseaseDO.SymptomsOrDiseaseName + "," + symptomsOrDiseaseDO.Medication + "," + symptomsOrDiseaseDO.Tests + "," + symptomsOrDiseaseDO.Cure;
             else
-                Session["MedicalDetails"] = "Unable to Find. Please try with some other Symptom";
+                Session["MedicalDetails"] = "None";
+            return RedirectToAction("DashBoard");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MedicationTracker(FormCollection formCollection)
+        {
+            string medicine1 = formCollection["Medication1"];
+            string medicine2 = formCollection["Medication2"];
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            if (medicine1 != null && medicine1.Length > 0)
+            {
+                userHealthInfoDO.Medication1 = medicine1;
+                userHealthInfoDO.StartDateM1 = Convert.ToDateTime(formCollection["StartDateM1"]);
+                userHealthInfoDO.DurationM1 = Convert.ToInt32(formCollection["DurationM1"]);
+            }
+            if (medicine2 != null && medicine2.Length > 0)
+            {
+                userHealthInfoDO.Medication2 = medicine2;
+                userHealthInfoDO.StartDateM2 = Convert.ToDateTime(formCollection["StartDateM2"]);
+                userHealthInfoDO.DurationM2 = Convert.ToInt32(formCollection["DurationM2"]);
+            }
+            CustomDO customDO = userHealthInfo.UpdateUserHealthInfo(userHealthInfoDO);
             return RedirectToAction("DashBoard");
         }
 
@@ -245,7 +293,7 @@ namespace Health_And_Fitness_360.Controllers
             AgeGrpWorkoutDO ageGrpWorkout = Session["ageGrpWorkout"] as AgeGrpWorkoutDO;
             UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
             UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
-            int currentCalories = (int)userHealthInfoDO.CurrentCalories;
+            int currentCalories = userHealthInfoDO.CurrentCalories ?? 0;
             int requiredCalories = Convert.ToInt32(ageGrpWorkout.Calories);
             double PercentageCalories = ((double)currentCalories / requiredCalories) * 100;
             double Calories = Math.Round(PercentageCalories);
@@ -316,6 +364,62 @@ namespace Health_And_Fitness_360.Controllers
             ViewBag.PregnancyWeek = week;
             ViewBag.PregnancyWeekLeft = 40 - week;
             
+        }
+
+        public void MedicineTrackingHelper()
+        {
+            UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
+            UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
+            UserHealthInfoDO userHealthInfoDO = userHealthInfo.GetUserHealthInfo(userInfo.EmailId);
+            string medication1 = userHealthInfoDO.Medication1;
+            string medication2 = userHealthInfoDO.Medication2;
+            int duration1 = userHealthInfoDO.DurationM1 ?? 0;
+            int duration2 = userHealthInfoDO.DurationM2 ?? 0;
+            DateTime startDateM1 = userHealthInfoDO.StartDateM1 ?? DateTime.Today;
+            DateTime startDateM2 = userHealthInfoDO.StartDateM2 ?? DateTime.Today;
+            ViewBag.Medication1 = "Congratulations you are safe. No medicines required.";
+            string msg1 = "";
+            string msg2 = "";
+            if (medication1 !=null && medication1.Length>0 && duration1!= 0)
+            {
+                if(DateTime.Today.Date>startDateM1.AddDays(duration1))
+                {
+                    msg1 = "Congratulations you have completed your Medicine " + medication1 + ". You are now completely recovered.";
+                }
+                else
+                {
+                    double completedDays= (DateTime.Today.Date - startDateM1).TotalDays;
+                    string leftDays = (duration1- completedDays).ToString();
+                    msg1 = "You have successfully completed medicine " + medication1 + " for " + completedDays.ToString() + " days and only " + leftDays + " days more to go.";
+                }
+            }
+            if (medication2 != null && medication2.Length > 0 && duration2!=0)
+            {
+                if (DateTime.Today.Date > startDateM2.AddDays(duration2))
+                {
+                    msg2 = "Congratulations you have completed your Medicine "+ medication2+". You are now completely recovered.";
+                }
+                else
+                {
+                    double completedDays = (DateTime.Today.Date - startDateM2).TotalDays;
+                    string leftDays = (duration2 - completedDays).ToString();
+                    msg2 = "You have successfully completed medicine " + medication1 + " for " + completedDays.ToString() + " days and only " + leftDays + " days more to go.";
+                }
+            }
+            if (msg1.Length > 0 && msg2.Length>0)
+            {
+                ViewBag.Medication1 = msg1;
+                ViewBag.Medication2 = msg2 + " Don't worry you will be fine.";
+            }
+            else if(msg1.Length > 0)
+            {
+                ViewBag.Medication1 = msg1 + " Don't worry you will be fine.";
+            }
+            else if (msg2.Length > 0)
+            {
+                ViewBag.Medication2 = msg2 + " Don't worry you will be fine.";
+            }
+
         }
     }
 }

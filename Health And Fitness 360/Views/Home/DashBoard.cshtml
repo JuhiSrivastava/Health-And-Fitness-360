@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "DashBoard";
 }
 <nav class="navbar navbar-inverse navbar-fixed-top" id="nav">
@@ -9,8 +8,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="#top">Heath Monitor</a></li>
-            <li><a href="#energy">Energy Indicator</a></li>
-            <li><a href="#energy">Menstrual Tracker </a></li>
+            <li><a href="#energy">Energy Indicator/Menstrual Tracker </a></li>
             <li><a href="#regular">Regular Fitness</a></li>
             <li><a href="#pregnancy">Pregnancy Tracker</a></li>
             <li><a href="#symptoms">Medication Tracker</a></li>
@@ -53,30 +51,30 @@
     <br />
     @using (Html.BeginForm("HealthMonitor", "Home", FormMethod.Post))
     {
-        //@Html.ValidationSummary()
-        @Html.AntiForgeryToken()
-        <table  style="width:100%;table-layout: fixed">
-            <tr>
-                <td style="width:3%"></td>
-                <td style="width:15%">
-                    @Html.Label("Height", labelText: "Enter Height", htmlAttributes: new { @class = "control-label" })
-                </td>
-                <td style="width:25%">
-                    @Html.TextBox("Height", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
-                </td>
-                <td style="width:3%"></td>
-                <td style="width:15%">
-                    @Html.Label("Weight", labelText: "Enter Weight", htmlAttributes: new { @class = "control-label" })
-                </td>
-                <td style="width:25%">
-                    @Html.TextBox("Weight", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Weight" })
-                </td>
-                <td style="width:3%"></td>
-                <td>
-                    <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
-                </td>
-            </tr>
-        </table>
+    //@Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    <table style="width:100%;table-layout: fixed">
+        <tr>
+            <td style="width:3%"></td>
+            <td style="width:15%">
+                @Html.Label("Height", labelText: "Enter Height", htmlAttributes: new { @class = "control-label" })
+            </td>
+            <td style="width:25%">
+                @Html.TextBox("Height", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
+            </td>
+            <td style="width:3%"></td>
+            <td style="width:15%">
+                @Html.Label("Weight", labelText: "Enter Weight", htmlAttributes: new { @class = "control-label" })
+            </td>
+            <td style="width:25%">
+                @Html.TextBox("Weight", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Weight" })
+            </td>
+            <td style="width:3%"></td>
+            <td>
+                <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
+            </td>
+        </tr>
+    </table>
     }
 
 </div>
@@ -90,8 +88,8 @@
                 <h5>@ViewBag.NeedCalories</h5>
                 @using (Html.BeginForm("EnergyIndicator", "Home", FormMethod.Post))
                 {
-                    //@Html.ValidationSummary()
-                    @Html.AntiForgeryToken()
+                //@Html.ValidationSummary()
+                @Html.AntiForgeryToken()
                 <table style="width:100%;table-layout: fixed">
                     <tr>
                         <td style="width:40%">
@@ -115,7 +113,7 @@
                         </td>
                     </tr>
                 </table>
-                    
+
                 }
 
             </div>
@@ -134,32 +132,32 @@
                 <h5>Today is @ViewBag.TodayDay day of your menstrual cycle and @ViewBag.LeftDay days are left for upcoming Menstrual Cycle</h5>
                 @using (Html.BeginForm("MenstrualAndFertilityTracker", "Home", FormMethod.Post))
                 {
-                    //@Html.ValidationSummary()
-                    @Html.AntiForgeryToken()
-                    <table style="width:100%;table-layout: fixed">
-                        <tr>
-                            <td style="width:50%">
-                                @Html.Label("MenstrualStartDate", labelText: "Menstrual Start Date", htmlAttributes: new { @class = "control-label" })
-                            </td>
-                            <td style="width:50%">
-                                @Html.TextBox("MenstrualStartDate", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:50%">
-                                @Html.Label("MonthlyCycle", labelText: "Monthly Cycle", htmlAttributes: new { @class = "control-label" })
-                            </td>
-                            <td style="width:50%">
-                                @Html.TextBox("MonthlyCycle", 28, htmlAttributes: new { @class = "form-control", @type = "number" })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
-                            </td>
-                        </tr>
-                    </table>
-                   
+                //@Html.ValidationSummary()
+                @Html.AntiForgeryToken()
+                <table style="width:100%;table-layout: fixed">
+                    <tr>
+                        <td style="width:50%">
+                            @Html.Label("MenstrualStartDate", labelText: "Menstrual Start Date", htmlAttributes: new { @class = "control-label" })
+                        </td>
+                        <td style="width:50%">
+                            @Html.TextBox("MenstrualStartDate", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%">
+                            @Html.Label("MonthlyCycle", labelText: "Monthly Cycle", htmlAttributes: new { @class = "control-label" })
+                        </td>
+                        <td style="width:50%">
+                            @Html.TextBox("MonthlyCycle", 28, htmlAttributes: new { @class = "form-control", @type = "number" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
+                        </td>
+                    </tr>
+                </table>
+
                 }
             </div>
         </td>
@@ -203,20 +201,20 @@
                 <h4>@ViewBag.PregnancyWeek week of your Pregnancy is going on. @ViewBag.PregnancyWeekLeft weeks more to go.</h4>
                 @using (Html.BeginForm("PregnancyTracker", "Home", FormMethod.Post))
                 {
-                    //@Html.ValidationSummary()
-                    @Html.AntiForgeryToken()
+                //@Html.ValidationSummary()
+                @Html.AntiForgeryToken()
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                                @Html.Label("PregnancyDate", labelText: "Pregnancy Start Date", htmlAttributes: new { @class = "control-label" })
-                                @Html.TextBox("PregnancyDate", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
-                            </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            @Html.Label("PregnancyDate", labelText: "Pregnancy Start Date", htmlAttributes: new { @class = "control-label" })
+                            @Html.TextBox("PregnancyDate", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
                         </div>
                     </div>
+                </div>
 
                 }
             </td>
@@ -224,31 +222,129 @@
 
     </table>
 </div>
+<div class="jumbotron" id="searchsymptoms">
+    <h2 style="text-align:center">Search for Symptoms/Diseases</h2>
+    <table style="width:100%;table-layout: fixed">
+        <tr>
+            <td>
+                <h4>Search for Symptoms/Diseases </h4>
+
+                @using (Html.BeginForm("SearchSymptom", "Home", FormMethod.Post))
+                {
+                //@Html.ValidationSummary()
+                @Html.AntiForgeryToken()
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            @Html.TextBox("Symptoms", "", new { @class = "form -control" })
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Search" />
+                        </div>
+                    </div>
+                </div>
+
+                }
+            </td>
+            <td>
+
+                <table>
+                    <tr>
+                        <td>Symptom/Disease Name:</td>
+                        <td>@ViewBag.SymptomName</td>
+                    </tr>
+                    <tr>
+                        <td>Medication:</td>
+                        <td>@ViewBag.Medication</td>
+                    </tr>
+                </table>
+
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>Test:</td>
+                        <td>@ViewBag.Test</td>
+                    </tr>
+                    <tr>
+                        <td>Cure:</td>
+                        <td>@ViewBag.Cure</td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>
 <div class="jumbotron" id="symptoms">
-    <h2 style="text-align:center">Symptoms/Diseases/Medication Tracker</h2>
-    <h4>Search for Symptoms/Diseases </h4>
+<h2 style="text-align:center">Medication Tracker</h2>
+<table style="width:100%;table-layout: fixed">
+    <tr>
+        <td style="width:100%;">
+            <h4>@ViewBag.Medication1</h4>
+            <h4>@ViewBag.Medication2</h4>
+            @using (Html.BeginForm("MedicationTracker", "Home", FormMethod.Post))
+            {
+            @Html.AntiForgeryToken()
+            <table style="width:100%;">
+                <tr>
+                    <td>
+                        @Html.Label("Medication1", labelText: "Medicine 1 Name", htmlAttributes: new { @class = "control-label" })
+                    </td>
+                    <td>
+                        @Html.TextBox("Medication1", "", htmlAttributes: new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.Label("Medication2", labelText: "Medicine 2 Name", htmlAttributes: new { @class = "control-label" })
+                    </td>
+                    <td>
+                        @Html.TextBox("Medication2", "", htmlAttributes: new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("StartDateM1", labelText: "Medication 1 Start Date", htmlAttributes: new { @class = "control-label" })
+                    </td>
+                    <td>
+                        @Html.TextBox("StartDateM1", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
+                    </td>
+                    <td>
+                        @Html.Label("StartDateM2", labelText: "Medication 2 Start Date", htmlAttributes: new { @class = "control-label" })
+                    </td>
+                    <td>
+                        @Html.TextBox("StartDateM2", "{0:d MMM yyyy}", new { @class = "form -control", @Value = DateTime.Today.Date.ToString("dd.MM.yyyy") })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("DurationM1", labelText: "Duration of Medicine 1", htmlAttributes: new { @class = "control-label" })
+                    </td>
+                    <td>
+                        @Html.TextBox("DurationM1", 0, htmlAttributes: new { @class = "form-control", @type = "number" })
+                    </td>
+                    <td>
+                        @Html.Label("DurationM2", labelText: "Duration of Medicine 2", htmlAttributes: new { @class = "control-label" })
+                    </td>
+                    <td>
+                        @Html.TextBox("DurationM2", 0, htmlAttributes: new { @class = "form-control", @type = "number" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Update" />
+                    </td>
+                </tr>
+            </table>
+            }
+        </td>
+    </tr>
 
-    @using (Html.BeginForm("SearchSymptom", "Home", FormMethod.Post))
-    {
-        //@Html.ValidationSummary()
-        @Html.AntiForgeryToken()
-
-        <div class="card form-inline">
-            <div class="card-body">
-                <div class="form-group">
-                    @Html.TextBox("Symptoms", "", new { @class = "form -control" })
-                </div>
-                <div class="form-group">
-                    <input type="submit" name="submit" class="btn btn-primary button button4" style="background-color:#222" value="Search" />
-                </div>
-            </div>
-        </div>
-
-    }
-    <h4>@ViewBag.Details</h4>
-
+</table>
 
 </div>
+
+
 
 <div class="jumbotron">
     <h2>Comming Soon...</h2>

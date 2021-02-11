@@ -13,16 +13,25 @@ namespace Business_Logic
         public CustomDO AddUserHealthInfo(UserHealthInfoDO userHealthInfo)
         {
             userHealthInfo = this.UpdateCalorie(userHealthInfo);
-            return new UserHealthInfoDAL().AddUserHealthInfo(userHealthInfo);
+            userHealthInfo.EmailId = UserInfoBL.EncodeItemToBase64(userHealthInfo.EmailId);
+            CustomDO custom = new UserHealthInfoDAL().AddUserHealthInfo(userHealthInfo);
+            userHealthInfo.EmailId = UserInfoBL.DecodeFrom64(userHealthInfo.EmailId);
+            return custom;
         }
         public UserHealthInfoDO GetUserHealthInfo(string emailId)
         {
-            return new UserHealthInfoDAL().GetUserHealthInfo(emailId);
+            emailId = UserInfoBL.EncodeItemToBase64(emailId);
+            UserHealthInfoDO userHealthInfo = new UserHealthInfoDAL().GetUserHealthInfo(emailId);
+            userHealthInfo.EmailId = UserInfoBL.DecodeFrom64(userHealthInfo.EmailId);
+            return userHealthInfo;
         }
         public CustomDO UpdateUserHealthInfo(UserHealthInfoDO modifiedUserHealthInfo)
         {
             modifiedUserHealthInfo = this.UpdateCalorie(modifiedUserHealthInfo);
-            return new UserHealthInfoDAL().UpdateUserHealthInfo(modifiedUserHealthInfo);
+            modifiedUserHealthInfo.EmailId = UserInfoBL.EncodeItemToBase64(modifiedUserHealthInfo.EmailId);
+            CustomDO custom = new UserHealthInfoDAL().UpdateUserHealthInfo(modifiedUserHealthInfo);
+            modifiedUserHealthInfo.EmailId = UserInfoBL.DecodeFrom64(modifiedUserHealthInfo.EmailId);
+            return custom;
         }
 
         public UserHealthInfoDO UpdateCalorie(UserHealthInfoDO userHealthInfo)

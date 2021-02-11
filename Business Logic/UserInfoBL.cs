@@ -12,15 +12,29 @@ namespace Business_Logic
     {
         public CustomDO AddUser(UserInfoDO userInfo)
         {
-            return new UserInfoDAL().AddUser(userInfo);
+            userInfo.EmailId = EncodeItemToBase64(userInfo.EmailId);
+            userInfo.UserMobile = EncodeItemToBase64(userInfo.UserMobile);
+            CustomDO custom = new UserInfoDAL().AddUser(userInfo);
+            userInfo.EmailId = DecodeFrom64(userInfo.EmailId);
+            userInfo.UserMobile = DecodeFrom64(userInfo.UserMobile);
+            return custom;
         }
         public UserInfoDO GetUser(string emailId, string password)
         {
-            return new UserInfoDAL().GetUser(emailId, password);
+            emailId = EncodeItemToBase64(emailId);
+            UserInfoDO userInfo = new UserInfoDAL().GetUser(emailId, password);
+            userInfo.EmailId = DecodeFrom64(userInfo.EmailId);
+            userInfo.UserMobile = DecodeFrom64(userInfo.UserMobile);
+            return userInfo;
         }
         public CustomDO UpdateUserInfo(UserInfoDO userInfo)
         {
-            return new UserInfoDAL().UpdateUserInfo(userInfo);
+            userInfo.EmailId = EncodeItemToBase64(userInfo.EmailId);
+            userInfo.UserMobile = EncodeItemToBase64(userInfo.UserMobile);
+            CustomDO custom = new UserInfoDAL().UpdateUserInfo(userInfo);
+            userInfo.EmailId = DecodeFrom64(userInfo.EmailId);
+            userInfo.UserMobile = DecodeFrom64(userInfo.UserMobile);
+            return custom;
         }
         public string BMICalculation(double height, double weight, int age)
         {
@@ -51,6 +65,32 @@ namespace Business_Logic
             }
             healthMonitor += " " + bmi.ToString();
             return healthMonitor;
+        }
+        //this function Convert to Encode
+        public static string EncodeItemToBase64(string data)
+        {
+            try
+            {
+                byte[] encData_byte = new byte[data.Length];
+                encData_byte = System.Text.Encoding.UTF8.GetBytes(data);
+                string encodedData = Convert.ToBase64String(encData_byte);
+                return encodedData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in base64Encode" + ex.Message);
+            }
+        } //this function Convert to Decode
+        public static string DecodeFrom64(string encodedData)
+        {
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            System.Text.Decoder utf8Decode = encoder.GetDecoder();
+            byte[] todecode_byte = Convert.FromBase64String(encodedData);
+            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[] decoded_char = new char[charCount];
+            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+            string result = new String(decoded_char);
+            return result;
         }
     }
 }
