@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "DashBoard";
 }
-<nav class="navbar navbar-inverse navbar-fixed-top" id="nav">
+
+<nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top" id="nav">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Health and Fitness - 360</a>
@@ -15,17 +16,16 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome @ViewBag.Name </ a ></ li >
-            <li><a href="#" onclick="LogoutFn()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="#" onclick="LogoutFn()"><span class="glyphiconyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div>
 </nav>
 
-
-<h1 style="text-align:center; position:relative" id="top">Welcome to your All in One Portal</h1>
+<h1 style="text-align:center; position:relative" id="top">Women's Health and Fitness Tracker</h1>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <div class="jumbotron">
     <h2 style="text-align:center">Heath Monitor through BMI</h2>
-    <h5>Your BMI = @ViewBag.BMI</h5>
+    <h5>Your BMI = <b>@ViewBag.BMI</b></h5>
     <table style="width:100%;table-layout: fixed">
         <tr style="font-size:15px; text-align:center">
             <td style="visibility:hidden" id="1">You are here: <i class="arrow down"></i></td>
@@ -38,14 +38,14 @@
             <td style="visibility:hidden" id="8">You are here: <i class="arrow down"></i></td>
         </tr>
         <tr style="font-size:15px; text-align:center">
-            <td style="background-color:red">Severe Thinness</td>
-            <td style="background-color:darkorange">Moderate Thinness</td>
-            <td style="background-color:orange">Mild Thinness</td>
-            <td style="background-color:yellow">Healthy</td>
-            <td style="background-color:orange">Overweight</td>
-            <td style="background-color:darkorange">Obese Class I</td>
-            <td style="background-color:red">Obese Class II</td>
-            <td style="background-color:red">Obese Class III</td>
+            <td style="background-color:#ff4040">Severe Thinness</td>
+            <td style="background-color:#ff8026">Moderate Thinness</td>
+            <td style="background-color:#ff944c">Mild Thinness</td>
+            <td style="background-color:#70db70">Healthy</td>
+            <td style="background-color:#ff944c">Overweight</td>
+            <td style="background-color:#ff8026">Obese Class I</td>
+            <td style="background-color:#FF5C3D">Obese Class II</td>
+            <td style="background-color:#ff4040">Obese Class III</td>
         </tr>
     </table>
     <br />
@@ -57,14 +57,14 @@
         <tr>
             <td style="width:3%"></td>
             <td style="width:15%">
-                @Html.Label("Height", labelText: "Enter Height", htmlAttributes: new { @class = "control-label" })
+                @Html.Label("Height", labelText: "Enter Height(m)", htmlAttributes: new { @class = "control-label" })
             </td>
             <td style="width:25%">
                 @Html.TextBox("Height", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Height" })
             </td>
             <td style="width:3%"></td>
             <td style="width:15%">
-                @Html.Label("Weight", labelText: "Enter Weight", htmlAttributes: new { @class = "control-label" })
+                @Html.Label("Weight", labelText: "Enter Weight(kg)", htmlAttributes: new { @class = "control-label" })
             </td>
             <td style="width:25%">
                 @Html.TextBox("Weight", "", htmlAttributes: new { @class = "form-control", placeholder = "Enter your Weight" })
@@ -84,7 +84,7 @@
         <td style="width:45%">
             <div class="jumbotron">
                 <h2>Energy Indicator</h2>
-                <h5>Calories: @ViewBag.Calories</h5>
+                <h5>Calories: <b>@ViewBag.Calories</b></h5>
                 <h5>@ViewBag.NeedCalories</h5>
                 @using (Html.BeginForm("EnergyIndicator", "Home", FormMethod.Post))
                 {
@@ -124,12 +124,12 @@
                 <h2>Menstrual cycle and fertility tracker</h2>
                 <table>
                     <tr>
-                        <td><h5>Menstrual Start Date: @ViewBag.MenstrualStartDate</h5></td>
-                        <td><h5>Monthly Cycle Durarion: @ViewBag.MensturalCycleDuration</h5></td>
-                        <td><h5>Fertility Days: @ViewBag.FertilityDays</h5></td>
+                        <td><h5>Menstrual Start Date: <b>@ViewBag.MenstrualStartDate</b></h5></td>
+                        <td><h5>Monthly Cycle Durarion: <b>@ViewBag.MensturalCycleDuration</b></h5></td>
+                        <td><h5>Fertility Days: <b>@ViewBag.FertilityDays</b></h5></td>
                     </tr>
                 </table>
-                <h5>Today is @ViewBag.TodayDay day of your menstrual cycle and @ViewBag.LeftDay days are left for upcoming Menstrual Cycle</h5>
+                <h5>Today is <b>@ViewBag.TodayDay</b> day of your menstrual cycle and <b>@ViewBag.LeftDay</b> days are left for upcoming Menstrual Cycle</h5>
                 @using (Html.BeginForm("MenstrualAndFertilityTracker", "Home", FormMethod.Post))
                 {
                 //@Html.ValidationSummary()
@@ -349,13 +349,12 @@
 <div class="jumbotron">
     <h2>Comming Soon...</h2>
     <ol>
-        <li>dietplan</li>
         <li>SOS and Doctor consult</li>
-        <li>Karate/ self defence exercise</li>
-        <li>weekly progress</li>
         <li>Fitness band integration</li>
+        <li>Karate/ self defence exercise</li>
+        <li>dietplan</li>
+        <li>weekly progress</li>
         <li>Distance Tracking and warning</li>
-        <li>Specific allergy related</li>
         <li>comments</li>
         <li>local db</li>
         <li>quotes</li>
@@ -371,7 +370,10 @@
 
 <script type="text/javascript">
     document.getElementById(@ViewBag.Status).style.visibility = "visible";
-        $(document).ready(function () {
+    $(document).ready(function () {
+        if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
+            window.location = "/Home/Index/";
+        }
             $('#nav .navbar-nav li>a').on('click', function (event) {
                 event.preventDefault();
                 var sectionID = $(this).attr("href");
@@ -392,9 +394,8 @@
     });
 
     function LogoutFn() {
-        window.location = "/Home/Index/";
+        window.location = "/Home/Logout/";
     }
-
 </script>
 
 <style>

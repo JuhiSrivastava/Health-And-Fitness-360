@@ -26,11 +26,11 @@ namespace Model_Object
         [Display(Name = "Gender")]
         public string Gender { get; set; }
 
-        [Display(Name = "Height")]
+        [Display(Name = "Height(m)")]
         [Required(ErrorMessage = "Height is required.")]
         public string UserHeight { get; set; }
 
-        [Display(Name = "Weight")]
+        [Display(Name = "Weight(kg)")]
         [Required(ErrorMessage = "Weight is required.")]
         public string UserWeight { get; set; }
 
