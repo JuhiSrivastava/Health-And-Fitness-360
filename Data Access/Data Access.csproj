@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="AgeGrpWorkoutDAL.cs" />
     <Compile Include="CSVHelpers\CSVHelper.cs" />
+    <Compile Include="CSVHelpers\DateTimeConverter.cs" />
     <Compile Include="CSVHelpers\Mappers\AgeGrpWorkoutMap.cs" />
     <Compile Include="CSVHelpers\Mappers\FoodItemsMap.cs" />
     <Compile Include="CSVHelpers\Mappers\SymptomsOrDiseaseMap.cs" />

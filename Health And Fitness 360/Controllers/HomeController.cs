@@ -347,8 +347,8 @@ namespace Health_And_Fitness_360.Controllers
             DateTime date2 = MenstrualStartDate.AddDays(MensturalCycleDuration - 15);
             DateTime date3 = MenstrualStartDate.AddDays(MensturalCycleDuration-14);
             ViewBag.FertilityDays = date1.ToShortDateString() + ", " + date2.ToShortDateString() + " and " + date3.ToShortDateString();
-            ViewBag.TodayDay = (DateTime.Today.Date - MenstrualStartDate).TotalDays;
-            ViewBag.LeftDay = MensturalCycleDuration - (DateTime.Today.Date - MenstrualStartDate).TotalDays;
+            ViewBag.TodayDay = (DateTime.Today.Date - MenstrualStartDate.Date).TotalDays;
+            ViewBag.LeftDay = MensturalCycleDuration - (DateTime.Today.Date - MenstrualStartDate.Date).TotalDays;
             
         }
 
@@ -388,7 +388,7 @@ namespace Health_And_Fitness_360.Controllers
                 }
                 else
                 {
-                    double completedDays= (DateTime.Today.Date - startDateM1).TotalDays;
+                    double completedDays= (DateTime.Today.Date - startDateM1.Date).TotalDays;
                     string leftDays = (duration1- completedDays).ToString();
                     msg1 = "You have successfully completed medicine " + medication1 + " for " + completedDays.ToString() + " days and only " + leftDays + " days more to go.";
                 }
@@ -401,9 +401,9 @@ namespace Health_And_Fitness_360.Controllers
                 }
                 else
                 {
-                    double completedDays = (DateTime.Today.Date - startDateM2).TotalDays;
+                    double completedDays = (DateTime.Today.Date - startDateM2.Date).TotalDays;
                     string leftDays = (duration2 - completedDays).ToString();
-                    msg2 = "You have successfully completed medicine " + medication1 + " for " + completedDays.ToString() + " days and only " + leftDays + " days more to go.";
+                    msg2 = "You have successfully completed medicine " + medication2 + " for " + completedDays.ToString() + " days and only " + leftDays + " days more to go.";
                 }
             }
             if (msg1.Length > 0 && msg2.Length>0)

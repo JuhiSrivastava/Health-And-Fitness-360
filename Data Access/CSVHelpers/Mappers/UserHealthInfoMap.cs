@@ -18,16 +18,16 @@ namespace Data_Access.CSVHelpers.Mappers
             Map(m => m.Calories_Day_6).Index(6);
             Map(m => m.Calories_Day_7).Index(7);
             Map(m => m.CurrentCalories).Index(8);
-            Map(m => m.PeriodDate).Index(9);
-            Map(m => m.FertilityDate).Index(10);
+            Map(m => m.PeriodDate).Index(9).TypeConverter<DateTimeConverter>();
+            Map(m => m.FertilityDate).Index(10).TypeConverter<DateTimeConverter>();
             Map(m => m.Medication1).Index(11);
-            Map(m => m.StartDateM1).Index(12);
+            Map(m => m.StartDateM1).Index(12).TypeConverter<DateTimeConverter>();
             Map(m => m.DurationM1).Index(13);
             Map(m => m.Medication2).Index(14);
-            Map(m => m.StartDateM2).Index(15);
+            Map(m => m.StartDateM2).Index(15).TypeConverter<DateTimeConverter>();
             Map(m => m.DurationM2).Index(16);
             Map(m => m.MenstrualCycleDuration).Index(17);
-            Map(m => m.PregnancyDate).Index(18);
+            Map(m => m.PregnancyDate).Index(18).TypeConverter<DateTimeConverter>();
         }
     }
 }
