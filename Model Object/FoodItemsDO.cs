@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Model_Object
 {
+    //Data Object class to store the different food items along with its details.
     public class FoodItemsDO
     {
         [Display(Name = "Food Items")]

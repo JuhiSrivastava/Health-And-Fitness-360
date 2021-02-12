@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model_Object
+﻿namespace Model_Object
 {
+    //Data Object class to store the different workout plans for a user.
     public class AgeGrpWorkoutDO
     {
         public int Start_Age { get; set; }

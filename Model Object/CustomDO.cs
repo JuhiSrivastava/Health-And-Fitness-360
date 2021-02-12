@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model_Object
+﻿namespace Model_Object
 {
+    //Data Object class to check whether insert and update are successful.
     public class CustomDO
     {
         public int CustomId { get; set; }
