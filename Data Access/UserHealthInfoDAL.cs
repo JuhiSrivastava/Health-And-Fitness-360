@@ -1,4 +1,5 @@
-﻿using Model_Object;
+﻿using Data_Access.CSVHelpers.Mappers;
+using Model_Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,17 @@ namespace Data_Access
     public class UserHealthInfoDAL
     {
         private HealthAndFitnessDBEntities healthAndFitnessDBEntities;
+        private CSVHelper CSVHelper;
         public UserHealthInfoDAL()
         {
             healthAndFitnessDBEntities = new HealthAndFitnessDBEntities();
+            this.CSVHelper = new CSVHelper();
         }
 
         public CustomDO AddUserHealthInfo(UserHealthInfoDO userHealthInfo)
         {
             CustomDO custom = new CustomDO();
+            /*
             UserHealthInfo userHealth = new UserHealthInfo()
             {
             EmailId = userHealthInfo.EmailId,
@@ -40,8 +44,13 @@ namespace Data_Access
             MenstrualCycleDuration = userHealthInfo.MenstrualCycleDuration,
             PregnancyDate = userHealthInfo.PregnancyDate
             };
-            healthAndFitnessDBEntities.UserHealthInfoes.Add(userHealth);
-            int returnVal = healthAndFitnessDBEntities.SaveChanges();
+            */
+            this.CSVHelper.InsertRecord<UserHealthInfoDO, UserHealthInfoMap>(userHealthInfo);
+
+            custom.CustomId = 1;
+            //healthAndFitnessDBEntities.UserHealthInfoes.Add(userHealth);
+            //int returnVal = healthAndFitnessDBEntities.SaveChanges();
+            int returnVal = 1;
             custom.CustomId = returnVal;
             if (returnVal > 0)
             {
@@ -56,7 +65,7 @@ namespace Data_Access
 
         public UserHealthInfoDO GetUserHealthInfo(string emailId)
         {
-            UserHealthInfoDO userHealthInfo = new UserHealthInfoDO();
+            /*UserHealthInfoDO userHealthInfo = new UserHealthInfoDO();
             UserHealthInfo userHealth = healthAndFitnessDBEntities.UserHealthInfoes.FirstOrDefault(x => x.EmailId.Equals(emailId));
             if (userHealth != null)
             {
@@ -79,14 +88,16 @@ namespace Data_Access
                 userHealthInfo.DurationM2 = userHealth.DurationM2;
                 userHealthInfo.MenstrualCycleDuration = userHealth.MenstrualCycleDuration;
                 userHealthInfo.PregnancyDate = userHealth.PregnancyDate;
-            }
+            }*/
+            UserHealthInfoDO userHealthInfo = this.CSVHelper.Read<UserHealthInfoDO, UserHealthInfoMap>().FirstOrDefault(x => x.EmailId.Equals(emailId));
+
             return userHealthInfo;
         }
 
         public CustomDO UpdateUserHealthInfo(UserHealthInfoDO modifiedUserHealthInfo)
         {
             CustomDO custom = new CustomDO();
-            UserHealthInfo userHealthInfo = healthAndFitnessDBEntities.UserHealthInfoes.FirstOrDefault(x => x.EmailId.Equals(modifiedUserHealthInfo.EmailId));
+            /*UserHealthInfo userHealthInfo = healthAndFitnessDBEntities.UserHealthInfoes.FirstOrDefault(x => x.EmailId.Equals(modifiedUserHealthInfo.EmailId));
             userHealthInfo.EmailId = modifiedUserHealthInfo.EmailId;
             userHealthInfo.Calories_Day_1 = modifiedUserHealthInfo.Calories_Day_1;
             userHealthInfo.Calories_Day_2 = modifiedUserHealthInfo.Calories_Day_2;
@@ -106,7 +117,16 @@ namespace Data_Access
             userHealthInfo.DurationM2 = modifiedUserHealthInfo.DurationM2;
             userHealthInfo.MenstrualCycleDuration = modifiedUserHealthInfo.MenstrualCycleDuration;
             userHealthInfo.PregnancyDate = modifiedUserHealthInfo.PregnancyDate;
-            int returnVal = healthAndFitnessDBEntities.SaveChanges();
+            int returnVal = healthAndFitnessDBEntities.SaveChanges();*/
+
+            UserHealthInfoDO userHealthInfo = this.CSVHelper.Read<UserHealthInfoDO, UserHealthInfoMap>().FirstOrDefault(x => x.EmailId.Equals(modifiedUserHealthInfo.EmailId));
+
+            this.CSVHelper.DeleteRecord<UserHealthInfoDO, UserHealthInfoMap>(userHealthInfo, "EmailId");
+            
+            this.CSVHelper.InsertRecord<UserHealthInfoDO, UserHealthInfoMap>(modifiedUserHealthInfo);
+
+            int returnVal = 1;
+            
             custom.CustomId = returnVal;
             if (returnVal > 0)
             {
