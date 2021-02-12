@@ -23,8 +23,11 @@ namespace Business_Logic
         {
             emailId = EncodeItemToBase64(emailId);
             UserInfoDO userInfo = new UserInfoDAL().GetUser(emailId, password);
-            userInfo.EmailId = DecodeFrom64(userInfo.EmailId);
-            userInfo.UserMobile = DecodeFrom64(userInfo.UserMobile);
+            if (userInfo != null)
+            {
+                userInfo.EmailId = DecodeFrom64(userInfo.EmailId);
+                userInfo.UserMobile = DecodeFrom64(userInfo.UserMobile);
+            }
             return userInfo;
         }
         public CustomDO UpdateUserInfo(UserInfoDO userInfo)

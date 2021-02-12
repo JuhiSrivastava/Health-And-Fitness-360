@@ -27,7 +27,7 @@ namespace Data_Access.CSVHelpers
             {
                 return date.ToString("yyyy-MM-dd hh:mm:ss");
             }
-            return value?.ToString();
+            return value?.ToString() ?? string.Empty;
         }
     }
 }

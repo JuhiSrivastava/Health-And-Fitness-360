@@ -28,7 +28,7 @@ namespace Health_And_Fitness_360.Controllers
             {
                 UserInfoBL userInfoBL = new UserInfoBL();
                 UserInfoDO userInfo = userInfoBL.GetUser(emailId, GetMD5(password));
-                if (userInfo.EmailId != null)
+                if (userInfo!=null)
                 {
                     Session["UserInfo"] = userInfo;
                     AgeGrpWorkoutDO ageGrpWorkout = this.HelperRegularFitness(userInfo.UserAge);
@@ -64,13 +64,17 @@ namespace Health_And_Fitness_360.Controllers
                 UserInfoBL userInfoBL = new UserInfoBL();
                 userInfoDO.Password = GetMD5(userInfoDO.Password);
                 CustomDO customDO = userInfoBL.AddUser(userInfoDO);
- 
 
                 // Add user health info
                 UserHealthInfoBL userHealthInfo = new UserHealthInfoBL();
                 UserHealthInfoDO userHealthInfoDO = new UserHealthInfoDO();
                 userHealthInfoDO.EmailId = userInfoDO.EmailId;
                 userHealthInfoDO.CurrentCalories = 0;
+                userHealthInfoDO.MenstrualCycleDuration = 28;
+                userHealthInfoDO.PeriodDate = DateTime.Today.Date;
+                userHealthInfoDO.PregnancyDate = DateTime.Today.Date;
+                userHealthInfoDO.StartDateM1 = DateTime.Today.Date;
+                userHealthInfoDO.StartDateM2 = DateTime.Today.Date;
                 CustomDO customDO1 = userHealthInfo.AddUserHealthInfo(userHealthInfoDO);
                 
                 Session["UserInfo"] = userInfoDO;
