@@ -120,6 +120,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBScript\DBScript.sql" />
     <Content Include="UserDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UserDBModel.Context.cs</LastGenOutput>

@@ -19,6 +19,7 @@ namespace Health_And_Fitness_360.Controllers
             return View();
         }
 
+        //This function will take care of the login credentials.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(string emailId, string password)
@@ -53,6 +54,7 @@ namespace Health_And_Fitness_360.Controllers
             return View();
         }
 
+        //This function will create the user information.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(UserInfoDO userInfoDO)
@@ -120,19 +122,21 @@ namespace Health_And_Fitness_360.Controllers
                 }
                 else
                 {
-                    ViewBag.SymptomName = "Unable to Find. Please try with some other Symptom/Disease";
-                    ViewBag.Medication = "Unable to Find. Please try with some other Symptom/Disease";
-                    ViewBag.Test = "Unable to Find. Please try with some other Symptom/Disease";
+                    ViewBag.SymptomName = "None";
+                    ViewBag.Medication = "None";
+                    ViewBag.Test = "None";
                     ViewBag.Cure = "Unable to Find. Please try with some other Symptom/Disease";
                 }
             }
 
             //Medicine Tracker
             this.MedicineTrackingHelper();
-                return View();
+
+            return View();
             
         }
 
+        //This function will update the user's personal information.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult HealthMonitor(FormCollection formCollection)
@@ -151,6 +155,7 @@ namespace Health_And_Fitness_360.Controllers
             return RedirectToAction("DashBoard");
         }
 
+        //This function will update the calorie information bake on the fook intake.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EnergyIndicator(FormCollection formCollection)
@@ -167,6 +172,7 @@ namespace Health_And_Fitness_360.Controllers
             return RedirectToAction("DashBoard");
         }
 
+        //This function will update the menstrual and fertility related details.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MenstrualAndFertilityTracker(FormCollection formCollection)
@@ -182,6 +188,7 @@ namespace Health_And_Fitness_360.Controllers
             return RedirectToAction("DashBoard");
         }
 
+        //This function will update the pregnancy related details.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PregnancyTracker(FormCollection formCollection)
@@ -195,6 +202,7 @@ namespace Health_And_Fitness_360.Controllers
             return RedirectToAction("DashBoard");
         }
 
+        //This function will get the details of the symptoms.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SearchSymptom(FormCollection formCollection)
@@ -210,6 +218,7 @@ namespace Health_And_Fitness_360.Controllers
             return RedirectToAction("DashBoard");
         }
 
+        //This function will update the medical details of the user.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult MedicationTracker(FormCollection formCollection)
@@ -243,7 +252,7 @@ namespace Health_And_Fitness_360.Controllers
         }
 
         
-        //create a string MD5
+        //This function will create a string MD5
         public static string GetMD5(string str)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
@@ -259,14 +268,15 @@ namespace Health_And_Fitness_360.Controllers
             return byte2String;
         }
 
+        //This function will load the Regular Fitness details of the user on loading the dashboard
         public AgeGrpWorkoutDO HelperRegularFitness(int age)
         {
-            //Regular Fitness
             AgeGrpWorkoutBL ageGrpWorkoutBL = new AgeGrpWorkoutBL();
             AgeGrpWorkoutDO ageGrpWorkout = ageGrpWorkoutBL.GetAgrGrpWorkout(age);
             return ageGrpWorkout;
         }
 
+        //This function will load BMI related details of the user on loading the dashboard
         public void MonitorHealthHelper()
         {
             UserInfoBL userInfoBL = new UserInfoBL();
@@ -282,6 +292,7 @@ namespace Health_And_Fitness_360.Controllers
 
         }
 
+        //This function will load the regular fitness of the user on loading the dashboard
         public void RegularFitnessHelper()
         {
             AgeGrpWorkoutBL ageGrpWorkoutBL = new AgeGrpWorkoutBL();
@@ -290,7 +301,8 @@ namespace Health_And_Fitness_360.Controllers
             string newPlanWorkout = ageGrpWorkoutBL.getModifiedPlan(0, Convert.ToInt32(ageGrpWorkout.Calories), currentPlan);
             ViewBag.Workout = "https://www.youtube.com/embed/" + newPlanWorkout;
         }
-
+        
+        //This function will load the Food intake details of the user on loading the dashboard 
         public void EnergyIndicatorHelper()
         {
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
@@ -337,6 +349,7 @@ namespace Health_And_Fitness_360.Controllers
             Session["foodItemList"] = FoodItemList;
         }
 
+        //This function will load the Menstrual and fertility related details of the user on loading the dashboard 
         public void MenstrualCycleAndFertilityTracker()
         {
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
@@ -356,6 +369,7 @@ namespace Health_And_Fitness_360.Controllers
             
         }
 
+        //This function will load the Pregnancy details of the user on loading the dashboard 
         public void PregnancyTrackerHelper()
         {
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
@@ -370,6 +384,7 @@ namespace Health_And_Fitness_360.Controllers
             
         }
 
+        //This function will load the medical details of the user on loading the dashboard 
         public void MedicineTrackingHelper()
         {
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
