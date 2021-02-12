@@ -16,7 +16,7 @@ namespace Data_Access
         public CSVHelper()
         {
             var appDomain = System.AppDomain.CurrentDomain;
-            this._basePath = appDomain.RelativeSearchPath ?? appDomain.BaseDirectory;
+            this._basePath = appDomain.BaseDirectory;
         }
 
         public List<T> Read<T, TMap>() where TMap : ClassMap<T>

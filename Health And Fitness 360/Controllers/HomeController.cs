@@ -199,7 +199,7 @@ namespace Health_And_Fitness_360.Controllers
             UserInfoDO userInfo = Session["UserInfo"] as UserInfoDO;
             SymptomsOrDiseaseBL symptomsOrDisease = new SymptomsOrDiseaseBL();
             SymptomsOrDiseaseDO symptomsOrDiseaseDO = symptomsOrDisease.GetSymptomsOrDiseaseDetails(symptom);
-            if (symptomsOrDiseaseDO.SymptomsOrDiseaseName != null)
+            if (symptomsOrDiseaseDO !=null && symptomsOrDiseaseDO.SymptomsOrDiseaseName != null)
                 Session["MedicalDetails"] = symptomsOrDiseaseDO.SymptomsOrDiseaseName + "," + symptomsOrDiseaseDO.Medication + "," + symptomsOrDiseaseDO.Tests + "," + symptomsOrDiseaseDO.Cure;
             else
                 Session["MedicalDetails"] = "None";

@@ -105,6 +105,12 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="CSVData\AgeGrpWorkoutDO.csv" />
+    <Content Include="CSVData\FoodItemsDO.csv" />
+    <Content Include="CSVData\SymptomsOrDiseaseDO.csv" />
+    <Content Include="CSVData\UserHealthInfoDO.csv" />
+    <Content Include="CSVData\UserInfoDO.csv" />
+    <Content Include="CSVData\UserSymptomsDO.csv" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
